@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://27qju6mnlrr7"]
+
+[ext_resource type="Script" uid="uid://cu0r225osmklj" path="res://scripts/characters/shadow_monarch.gd" id="1_k5vcc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3emnh"]
+radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_k5vcc"]
+offsets = PackedFloat32Array(0, 0.0194805, 0.948052, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1.54018e-06, 0.510009, 0.336497, 1, 0.532468, 0.532468, 0.532468, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3emnh"]
+gradient = SubResource("Gradient_k5vcc")
+
+[node name="ShadowMonarch" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_k5vcc")
+
+[node name="Collision" type="CollisionShape2D" parent="." groups=["player"]]
+shape = SubResource("CircleShape2D_3emnh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 1, 1)
+texture = SubResource("GradientTexture2D_3emnh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true

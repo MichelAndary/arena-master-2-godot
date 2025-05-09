@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn7qe66bxbnpd"]
+
+[ext_resource type="Script" uid="uid://bmaxu86kw7mxy" path="res://scripts/ui/game_hud.gd" id="1_8q2ou"]
+[ext_resource type="Script" uid="uid://64xf3aqiguh7" path="res://scripts/levels/basic_arena.gd" id="1_t4pi5"]
+[ext_resource type="Script" uid="uid://ppbkyxn78h3m" path="res://scripts/enemies/enemy_spawner.gd" id="1_t47ln"]
+[ext_resource type="PackedScene" uid="uid://dv6gpsrt0d2ln" path="res://scenes/enemies/basic_enemy.tscn" id="2_4ecjx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfk4g"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t47ln"]
+bg_color = Color(0.501961, 0, 0.501961, 1)
+
+[node name="BasicArena" type="Node2D" groups=["game_scene"]]
+script = ExtResource("1_t4pi5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." groups=["game_scene", "player_spawn"]]
+position = Vector2(960, 540)
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="GameUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8q2ou")
+
+[node name="TopBarContainer" type="HBoxContainer" parent="GameUI/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="PlayerStatsContainer" type="VBoxContainer" parent="GameUI/HUD/TopBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HPLabel" type="Label" parent="GameUI/HUD/TopBarContainer/PlayerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "HP: 100/100"
+
+[node name="HPBar" type="ProgressBar" parent="GameUI/HUD/TopBarContainer/PlayerStatsContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_wfk4g")
+value = 100.0
+
+[node name="SPLabel" type="Label" parent="GameUI/HUD/TopBarContainer/PlayerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "SP: 20/20"
+
+[node name="SPBar" type="ProgressBar" parent="GameUI/HUD/TopBarContainer/PlayerStatsContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_t47ln")
+max_value = 20.0
+value = 20.0
+
+[node name="CenterInfoContainer" type="VBoxContainer" parent="GameUI/HUD/TopBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="GameUI/HUD/TopBarContainer/CenterInfoContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Time: 3:00"
+horizontal_alignment = 1
+
+[node name="EnemyCountLabel" type="Label" parent="GameUI/HUD/TopBarContainer/CenterInfoContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Enemies: 0/20"
+horizontal_alignment = 1
+
+[node name="RightSpaceHolder" type="Control" parent="GameUI/HUD/TopBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("1_t47ln")
+enemy_scene = ExtResource("2_4ecjx")
+max_enemies = 5

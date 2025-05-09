@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv6gpsrt0d2ln"]
+
+[ext_resource type="Script" uid="uid://ppdfogakekve" path="res://scripts/enemies/base_enemy.gd" id="1_7jpia"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7jpia"]
+radius = 37.39
+
+[sub_resource type="Gradient" id="Gradient_7jpia"]
+offsets = PackedFloat32Array(0, 0.00649351, 0.961039, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.865149, 0.184508, 0, 1, 0.910791, 0.460521, 0.338462, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8xi43"]
+gradient = SubResource("Gradient_7jpia")
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+script = ExtResource("1_7jpia")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7jpia")
+
+[node name="Sprite" type="Sprite2D" parent="Collision"]
+modulate = Color(1, 0, 0, 1)
+texture = SubResource("GradientTexture2D_8xi43")

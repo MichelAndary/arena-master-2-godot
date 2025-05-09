@@ -1,0 +1,6 @@
+res://scenes/characters/shadow_monarch.tscn
+res://scenes/ui/main_menu.tscn
+res://scenes/ui/character_select.tscn
+res://scenes/levels/basic_arena.tscn
+res://scenes/enemies/basic_enemy.tscn
+res://scripts/enemies/base_enemy.gd

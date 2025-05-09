@@ -1,0 +1,179 @@
+[gd_scene load_steps=2 format=3 uid="uid://bflau31tihlki"]
+
+[ext_resource type="Script" uid="uid://b11fl6f171n7j" path="res://scenes/ui/character_select.gd" id="1_ci853"]
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ci853")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 26.0
+offset_right = -2.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.310617, 0.310617, 0.310617, 1)
+
+[node name="MainLayout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterInfoSection" type="HBoxContainer" parent="MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="CharacterImagePanel" type="Panel" parent="MainLayout/CharacterInfoSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ImagePlaceholder" type="Label" parent="MainLayout/CharacterInfoSection/CharacterImagePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Full Scale Character Image"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterDescription" type="VBoxContainer" parent="MainLayout/CharacterInfoSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MainLayout/CharacterInfoSection/CharacterDescription"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Text about the character - Lore - Pros - Cons"
+
+[node name="Label2" type="Label" parent="MainLayout/CharacterInfoSection/CharacterDescription"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Text about the character - Lore - Pros - Cons"
+
+[node name="Label3" type="Label" parent="MainLayout/CharacterInfoSection/CharacterDescription"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Text about the character - Lore - Pros - Cons"
+
+[node name="Label4" type="Label" parent="MainLayout/CharacterInfoSection/CharacterDescription"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Text about the character - Lore - Pros - Cons"
+
+[node name="Label5" type="Label" parent="MainLayout/CharacterInfoSection/CharacterDescription"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Text about the character - Lore - Pros - Cons"
+
+[node name="CharacterStatsPanel" type="Panel" parent="MainLayout/CharacterInfoSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatsPlaceholder" type="Label" parent="MainLayout/CharacterInfoSection/CharacterStatsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -11.5
+offset_right = 59.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Character Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSelectionBar" type="Panel" parent="MainLayout"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CharacterSlots" type="HBoxContainer" parent="MainLayout/CharacterSelectionBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharacterSlot1" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot2" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot3" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot4" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot5" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot6" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterSlot7" type="Button" parent="MainLayout/CharacterSelectionBar/CharacterSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionButtons" type="HBoxContainer" parent="MainLayout"]
+layout_mode = 2
+alignment = 2
+
+[node name="BackButton" type="Button" parent="MainLayout/ActionButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="StartButton" type="Button" parent="MainLayout/ActionButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Game"
