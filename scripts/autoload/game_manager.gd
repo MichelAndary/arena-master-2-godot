@@ -22,6 +22,7 @@ signal stage_completed
 signal player_died
 signal enemy_killed
 signal portal_opened
+signal soul_essence_collected
 
 # Scene paths
 var main_menu_scene = "res://scenes/ui/main_menu.tscn"

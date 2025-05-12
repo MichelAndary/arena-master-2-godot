@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ppdfogakekve" path="res://scripts/enemies/base_enemy.gd" id="1_7jpia"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jpia"]
-radius = 37.39
+radius = 15.0
 
 [sub_resource type="Gradient" id="Gradient_7jpia"]
 offsets = PackedFloat32Array(0, 0.00649351, 0.961039, 1)

@@ -8,6 +8,9 @@ var intelligence = 10  # Affects shadow command chance
 var shadow_list = []  # List of active shadows
 var shadow_limit = 5  # Maximum number of shadows at once
 
+@onready var weapon_animator = $WeaponAnimator
+@onready var dagger_hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
+
 # Shadow Monarch signals
 signal sp_changed(current, maximum)
 
@@ -24,6 +27,11 @@ func _ready():
 	
 	# Call parent ready
 	super._ready()
+
+# Connect dagger hit area signals
+	if has_node("WeaponSystem/DaggerHolder/DaggerHitArea"):
+		var hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
+		hit_area.body_entered.connect(_on_dagger_hit_area_body_entered)
 
 # Override skill method (E key)
 func use_skill():
@@ -107,3 +115,10 @@ func on_enemy_killed(enemy):
 	
 	# In a full implementation, the enemy would be added to available summons
 	print("Enemy added to available summons list")
+
+func _on_dagger_hit_area_body_entered(body):
+	if body.is_in_group("enemies") and is_attacking:
+		# Deal damage to the enemy
+		if body.has_method("take_damage"):
+			body.take_damage(base_damage, self)
+			print("Dagger hit enemy: " + body.name)

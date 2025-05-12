@@ -23,6 +23,7 @@ var dash_speed = 500
 var attack_range = 150
 var attack_cooldown = 0.5
 var attack_timer = 0.0
+var is_attacking = false
 
 # Skill and ultimate cooldowns
 var skill_cooldown = 5.0
@@ -39,6 +40,9 @@ signal health_changed(current, maximum)
 signal died
 
 func _ready():
+	# Ensure player is in the player group
+	add_to_group("player")
+	
 	# Initial setup
 	update_health_display()
 
@@ -192,23 +196,58 @@ func check_for_targets():
 		target_enemy = null
 
 func auto_attack():
-	if target_enemy and current_state != State.DEAD:
-		print(character_name + " attacks " + target_enemy.name)
-		attack_timer = attack_cooldown
+	if target_enemy == null:
+		return  # No target, do nothing
 		
-		# Deal damage
-		if target_enemy.has_method("take_damage"):
-			target_enemy.take_damage(base_damage, self)
+	if current_state == State.DEAD:
+		return  # Dead character can't attack
+		
+	print(character_name + " attacks " + target_enemy.name)
+	attack_timer = attack_cooldown
+	
+	# Set attacking flag
+	is_attacking = true
+	
+	# Face toward enemy if WeaponSystem exists
+	if has_node("WeaponSystem"):
+		var direction = target_enemy.global_position - global_position
+		if direction.x > 0:
+			$WeaponSystem.scale.x = 1  # Face right
+		else:
+			$WeaponSystem.scale.x = -1  # Face left
+	
+	# Trigger attack animation
+	if has_node("WeaponAnimator"):
+		$WeaponAnimator.play("dagger_attack")
+		await $WeaponAnimator.animation_finished
+	
+	# Deal damage to the enemy (only if target still exists)
+	if is_instance_valid(target_enemy) and target_enemy.has_method("take_damage"):
+		target_enemy.take_damage(base_damage, self)
+	
+	# Clear attacking flag
+	is_attacking = false
 
 func take_damage(amount):
-	# Print debug info
-	print(character_name + " is taking " + str(amount) + " damage!")
+	print("\n--- PLAYER TAKE DAMAGE ---")
+	print("Character: " + character_name)
+	print("Current health: " + str(health))
+	print("Taking damage: " + str(amount))
 	
+	# Apply damage
 	health -= amount
-	print(character_name + " now has " + str(health) + "/" + str(max_health) + " health")
 	
-	update_health_display()
+	# Ensure health doesn't go below zero
+	if health < 0:
+		health = 0
 	
+	print("New health: " + str(health))
+	print("--- END TAKE DAMAGE ---\n")
+	
+	# Update UI
+	emit_signal("health_changed", health, max_health)
+	
+	# Check if dead
 	if health <= 0:
 		die()
 

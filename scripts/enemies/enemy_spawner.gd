@@ -8,13 +8,17 @@ extends Node2D
 var spawn_timer = 0.0
 var enemies_spawned = 0
 var active_enemies = 0
+var signal_connected = false
 
 func _ready():
 	# Set the total number of enemies for this stage
 	GameManager.enemies_total = max_total_enemies
 	
 	# Connect to enemy_killed signal to track active enemies
-	GameManager.connect("enemy_killed", Callable(self, "_on_enemy_killed"))
+	# IMPORTANT: Only connect once to avoid recursive calls
+	if !signal_connected:
+		GameManager.connect("enemy_killed", Callable(self, "_on_enemy_killed"))
+		signal_connected = true
 
 func _process(delta):
 	# If we've spawned all enemies, just return
@@ -82,3 +86,26 @@ func open_portal():
 	# Wait a bit and then complete stage
 	await get_tree().create_timer(3.0).timeout
 	GameManager.complete_stage()
+
+func collect_remaining_essence():
+	# Find all soul essence items in the scene
+	var essence_items = get_tree().get_nodes_in_group("soul_essence")
+	var total_collected = 0
+	
+	# For each item, collect 50% of its value
+	for item in essence_items:
+		var half_value = ceil(item.value / 2.0)  # Round up to nearest integer
+		total_collected += half_value
+		
+		# Create a pickup effect
+		var tween = create_tween()
+		tween.tween_property(item, "scale", Vector2(0, 0), 0.2)
+		tween.tween_callback(item.queue_free)
+	
+	# Add to player's soul essence
+	if total_collected > 0:
+		GameManager.soul_essence += total_collected
+		print("Collected " + str(total_collected) + " remaining Soul Essence at 50% value")
+		
+		# Update UI
+		GameManager.emit_signal("soul_essence_collected")  # Use the proper signal

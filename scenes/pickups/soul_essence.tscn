@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://kipgcaj2tehq"]
+
+[ext_resource type="Script" uid="uid://dayi6t17jswdw" path="res://scripts/pickups/soul_essence.gd" id="1_j4g37"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d6gd4"]
+radius = 15.0
+
+[sub_resource type="Gradient" id="Gradient_j4g37"]
+offsets = PackedFloat32Array(0, 0.688312, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.213385, 0.69475, 0.859903, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_drhxd"]
+gradient = SubResource("Gradient_j4g37")
+
+[node name="SoulEssence" type="Area2D"]
+script = ExtResource("1_j4g37")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d6gd4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(0.171875, 0.28125)
+texture = SubResource("GradientTexture2D_drhxd")

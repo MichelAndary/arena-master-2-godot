@@ -10,15 +10,21 @@ var time_remaining = 180
 @onready var hp_label = $TopBarContainer/PlayerStatsContainer/HPLabel
 @onready var sp_bar = $TopBarContainer/PlayerStatsContainer/SPBar
 @onready var sp_label = $TopBarContainer/PlayerStatsContainer/SPLabel
+@onready var soul_essence_label = $TopBarContainer/PlayerStatsContainer/SoulEssenceLabel
+@onready var stage_label = $TopBarContainer/CenterInfoContainer/StageLabel
 
 func _ready():
 	# Initialize UI
 	time_remaining = stage_time
 	update_timer_display()
 	update_enemy_count()
+	update_soul_essence_display()
+	update_stage_display()
 	
 	# Connect to GameManager signals
 	GameManager.connect("enemy_killed", Callable(self, "update_enemy_count"))
+	GameManager.connect("enemy_killed", Callable(self, "update_soul_essence_display"))
+	GameManager.connect("stage_completed", Callable(self, "update_stage_display"))
 
 func _process(delta):
 	# Update timer
@@ -38,10 +44,12 @@ func update_enemy_count():
 func connect_player_signals(player):
 	# Connect health and SP signals from player
 	if player.has_signal("health_changed"):
-		player.connect("health_changed", Callable(self, "update_health_display"))
+		if not player.health_changed.is_connected(Callable(self, "update_health_display")):
+			player.health_changed.connect(Callable(self, "update_health_display"))
 	
 	if player is ShadowMonarch and player.has_signal("sp_changed"):
-		player.connect("sp_changed", Callable(self, "update_sp_display"))
+		if not player.sp_changed.is_connected(Callable(self, "update_sp_display")):
+			player.sp_changed.connect(Callable(self, "update_sp_display"))
 	
 	# Initial update
 	update_health_display(player.health, player.max_health)
@@ -57,6 +65,12 @@ func update_sp_display(current, maximum):
 	sp_bar.max_value = maximum
 	sp_bar.value = current
 	sp_label.text = "SP: " + str(current) + "/" + str(maximum)
+	
+func update_soul_essence_display():
+	soul_essence_label.text = "Soul Essence: " + str(GameManager.soul_essence)
+
+func update_stage_display():
+	stage_label.text = "Stage: " + str(GameManager.current_stage)
 
 func on_timer_expired():
 	print("Time's up! Opening portal...")

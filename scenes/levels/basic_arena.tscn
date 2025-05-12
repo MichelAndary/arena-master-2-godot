@@ -67,6 +67,11 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_t47ln")
 max_value = 20.0
 value = 20.0
 
+[node name="SoulEssenceLabel" type="Label" parent="GameUI/HUD/TopBarContainer/PlayerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Soul Essence: 0"
+
 [node name="CenterInfoContainer" type="VBoxContainer" parent="GameUI/HUD/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -84,6 +89,12 @@ theme_override_font_sizes/font_size = 24
 text = "Enemies: 0/20"
 horizontal_alignment = 1
 
+[node name="StageLabel" type="Label" parent="GameUI/HUD/TopBarContainer/CenterInfoContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Stage: 1"
+horizontal_alignment = 1
+
 [node name="RightSpaceHolder" type="Control" parent="GameUI/HUD/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -92,3 +103,5 @@ size_flags_horizontal = 3
 script = ExtResource("1_t47ln")
 enemy_scene = ExtResource("2_4ecjx")
 max_enemies = 5
+
+[node name="DebugTest" type="Node" parent="."]

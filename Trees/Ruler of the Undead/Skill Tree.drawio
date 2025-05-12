@@ -1,0 +1,700 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15">
+  <diagram name="Page-1" id="KIxh99bxhZbwvVvDCB8j">
+    <mxGraphModel dx="1368" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-1" value="1" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-2" value="2" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-3" value="Path 1: Legion of Spirits" style="text;whiteSpace=wrap;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="320" y="50" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-4" value="Shadow Monarch Tree" style="text;whiteSpace=wrap;fontSize=24;" parent="1" vertex="1">
+          <mxGeometry x="1135" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-7" value="Spirits gain +20% damage, +10% HP." style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="316" y="160" width="217.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-8" value="3" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-9" value="Spirits take -15% damage" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="180" y="280" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-10" value="Defeated Spirits explode for AoE damage" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="480" y="280" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-13" value="4" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-14" value="5" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-15" value="Allows 1 Elite Shadow summon" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="170" y="400" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-16" value="Enables summoning of Medium-tier enemies" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="480" y="400" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-17" value="Shadow Strike now leaves a shadow spirit that taunts enemies (50% HP)" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="322.5" y="520" width="215" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-18" value="6" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="480" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-19" value="7" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="600" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-20" value="Spirits can now crit with 30% chance" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="310" y="640" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-21" value="8" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-22" value="9" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-23" value="Regain 3 SP when a summon dies" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="160" y="760" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-24" value="+3 summon cap" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="540" y="760" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-26" value="10" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-27" value="Spirits Crit chance + 20%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="165" y="1000" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-28" value="Spirits Crit damage + 50%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="345" y="1000" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-29" value="Spirits Attack + 30%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="530" y="1000" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-30" value="Each active summon increases spirit stats by 2%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="290" y="1120" width="290" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-31" value="50% of damage taken is redirected to 1 random summon" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="179.62" y="1240" width="177.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-32" value="30% of Spirit HP restoration upon Spirit Death" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="515" y="1240" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-33" value="Fallen summons have a 30% chance to revive once" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="280" y="1360" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-34" value="11" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-35" value="12" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-36" value="13" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-39" value="14" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1080" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-40" value="15" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="1200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-41" value="16" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="1200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-42" value="17" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-43" value="18" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="1440" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-44" value="+1 Elite Slot, +5 Summon Cap, +10% Summon Damage, +10% SP Regen Rate." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="195" y="1960" width="455" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-45" value="While stationary, Spirits gain +20% attack speed" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="185.13" y="1480" width="155" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-46" value="+1 Elite Shadow summon" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="350" y="880" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-48" value="When Elite is alive, all basic summons get +10% damage" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="1600" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-49" value="While active, each spirit grants you +20% damage resistance" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="483.5" y="1480" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-51" value="19" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="1440" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-52" value="20" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1560" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-54" value="25" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1920" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-55" value="Army of Darkness" style="text;whiteSpace=wrap;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="370" y="1900" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-63" value="+1 elite Summon" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="207.5" y="1720" width="105" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-67" value="Medium-tier Spirits +50% HP" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="498.75" y="1720" width="162.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-68" value="21" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-69" value="22" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-72" value="23" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="240" y="1800" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-74" value="24" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="560" y="1800" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-75" value="Each summon death increases the next summon’s&amp;nbsp;&lt;div&gt;damage by +5% (stacks up to 5x).&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="470" y="1840" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-76" value="if 3+ summons attack the same target, all gain +10% lifesteal." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="172.63" y="1840" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-78" value="Elite Bond" style="text;whiteSpace=wrap;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="387.5" y="1540" width="65" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-81" value="&lt;b&gt;Empowered Shadows&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="357.12" y="100" width="135.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-82" value="&lt;strong data-end=&quot;347&quot; data-start=&quot;333&quot;&gt;Shadeguard&lt;/strong&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="195" y="220" width="135.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-83" value="Soulburst" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="550" y="220" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-84" value="Elite Pact" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="230" y="340" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-85" value="Ascended Command" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="515" y="340" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-86" value="&lt;br&gt;Spectral Battalion&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="365" y="560" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-87" value="&lt;table&gt;&lt;tbody&gt;&lt;tr data-start=&quot;554&quot; data-end=&quot;633&quot;&gt;&lt;td data-col-size=&quot;sm&quot; data-start=&quot;612&quot; data-end=&quot;633&quot;&gt;&lt;strong data-start=&quot;614&quot; data-end=&quot;631&quot;&gt;Echo of Death&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr data-start=&quot;634&quot; data-end=&quot;693&quot;&gt;&lt;td data-start=&quot;634&quot; data-end=&quot;638&quot; data-col-size=&quot;sm&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="375" y="450" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-88" value="Essence Recycle" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="210" y="700" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-89" value="Spirit&amp;nbsp;Garrison" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="535" y="700" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-90" value="Brigadier&#39;s Loyalty" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="368.75" y="820" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-91" value="Ghost Fang" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="220" y="940" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-92" value="Nightpiercer" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="380" y="940" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-93" value="Savage Will" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="545" y="940" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-94" value="Synergetic Swarm" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="365" y="1060" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-95" value="Guardian Spirit" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="216" y="1180" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-96" value="Last Gift" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="555" y="1180" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-97" value="Spirit Rebirth" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="375" y="1300" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-98" value="Commanding Presence" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="190" y="1420" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-99" value="Defensive Aura" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="533.5" y="1420" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-100" value="Dark General" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="220" y="1660" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-101" value="Reinforced Husk" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="540" y="1660" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-102" value="Swarm Feeding" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="210" y="1780" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-103" value="Vengeful Flow" style="text;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="540" y="1780" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-104" value="Path 2: Silent Blades" style="text;whiteSpace=wrap;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="50" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-105" value="1" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-106" value="Gain +20% attack speed with daggers, +10% movement speed." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1173.75" y="160" width="192.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-107" value="2" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-108" value="3" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-109" value="All dagger attacks apply Bleed (5% HP every 3 seconds)." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1017.5" y="280" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-110" value="All dagger attacks&amp;nbsp;inflict Poison (10% damage over 4s, stacks twice)." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1330" y="280" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-111" value="4" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-112" value="5" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-113" value="Can equip a second dagger.&amp;nbsp;&lt;div&gt;Each dagger deals -40% damage but attacks independently.&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1013.75" y="400" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-114" value="6" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="480" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-115" value="+15% critical chance with daggers." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="520" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-118" value="7" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="600" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-120" value="Spirit Strike deals 80%&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;dagger damage and applies a seperate instance of Bleed.&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1010" y="640" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-121" value="Dagger kills reduce skill cooldown by 0.2s" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="982.5" y="1120" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-123" value="Critical Damage +60%" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1207.5" y="880" width="145" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-124" value="Crit chance + 30%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="1047.5" y="880" width="115" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-125" value="Attack + 50%" style="text;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="1390" y="880" width="82.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-126" value="+25% bonus damage to Bleeding enemies." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="970" y="1360" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-127" value="Poison damage spreads to nearby enemies on kill. (Max 3)" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1341.25" y="640" width="182.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-129" value="+5% attack speed and +5% attack damage for every nearby&lt;div&gt;Bleeding or poisoned enemy (radius to be tested)&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1105" y="760" width="355" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-130" value="Your ultimate is changed to: Dash to up to 5 enemies, dealing 200% damage each, automatically applying Bleed and Poison. - Cooldown -2 seconds for each enemy that dies by this attack" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1072.5" y="1960" width="387.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-131" value="Dagger +80% range" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1370" y="400" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-132" value="Attacks deal +25% damage to enemies&amp;nbsp;&lt;div&gt;below 30% HP.&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="995" y="1600" width="227.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-133" value="Each tick of Bleed restores 1 HP." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1000" y="1720" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-134" value="Bleed and poison now stack twice as much" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1142.5" y="1000" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-135" value="Skill cooldown -1s. +15% movement speed for 2s after using your skill" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1325" y="1120" width="215" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-137" value="Poison slows the enemy by 30%" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1320" y="1360" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-138" value="8" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="600" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-139" value="10" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1082.5" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-140" value="11" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1242.5" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-141" value="12" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1402.5" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-142" value="&lt;div&gt;initially: when picking a node, cooldown of 5 turns for the other node&lt;/div&gt;Shop upgrade: cooldown -1 turn" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1507.5" y="20" width="410" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-143" value="14" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="1080" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-144" value="13" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-145" value="9" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7gNfZ5Tuh3BPFkFw6iqZ-146" value="25" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="1920" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-1" value="15" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="1080" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-2" value="16" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="1200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-3" value="17" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1080" y="1320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-4" value="18" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="1320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-5" value="19" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="1440" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-6" value="20" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1082.5" y="1560" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-7" value="21" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1402.5" y="1560" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-8" value="22" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1082.5" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-9" value="23" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1402.5" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-11" value="24" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="1800" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-12" value="Attacks deal +25% damage to enemies&amp;nbsp;&lt;div&gt;when you are below 30% HP.&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1321.25" y="1600" width="237.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-13" value="+10% Crit Chance, +20% Crit Damage, +25% Bleed/Poison damage" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1147.5" y="1840" width="235" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-15" value="Each enemy killed by poison restores 10 HP." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1362.5" y="1720" width="145" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-16" value="First hit against an enemy is always a crit with 100% Crit Damage increase" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1135" y="1480" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-20" value="Bleed and poison now deal damage faster" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1145" y="1240" width="245" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-21" value="Path 3: Curse bearer" style="text;whiteSpace=wrap;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="2060" y="50" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-22" value="&lt;span data-start=&quot;233&quot; data-end=&quot;268&quot;&gt;Cursed enemies explode on death dealing 30% AOE damage&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2083.13" y="760" width="136.87" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-24" value="&lt;span style=&quot;&quot; data-start=&quot;415&quot; data-end=&quot;452&quot;&gt;Curses reduce enemy damage output&lt;/span&gt; by 20%." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2232.5" y="400" width="145" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-26" value="Enemies that attack you&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;while cursed take 20% of their damage back.&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1880" y="280" width="225" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-27" value="&lt;p data-start=&quot;807&quot; data-end=&quot;836&quot; class=&quot;&quot;&gt;&lt;strong data-start=&quot;807&quot; data-end=&quot;830&quot;&gt;Ultimate is changed to: Create a zone&lt;/strong&gt;&amp;nbsp;for 14 sec that:&lt;br&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Boost your and spirit damage by +25% within.&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Curses and Slows enemy movement by 30%.&lt;/span&gt;&lt;/p&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2010" y="140" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-30" value="&lt;span style=&quot;&quot; data-start=&quot;1159&quot; data-end=&quot;1192&quot;&gt;Your zone is expanded by 50%&lt;/span&gt;, and lasts for 3 more seconds." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2055.94" y="1480" width="180.62" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-31" value="&lt;span style=&quot;&quot; data-start=&quot;1223&quot; data-end=&quot;1301&quot;&gt;Casting a zone now also creates a “mirror image” of yourself in the same position for 5 seconds&lt;/span&gt;, attacking nearby enemies." style="text;whiteSpace=wrap;html=1;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="2000" y="520" width="310" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-32" value="your skill creates a &quot;mirror image&quot; for 3 seconds, attacking nearby enemies" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1880" y="995" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-33" value="upon expiry, your mirror image burts in 4 directions dealing damage and applying curses&amp;nbsp;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1855" y="1355" width="265" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-34" value="When casting your ultimate, 35% chance that the enemy will become an ally for the duration of the ultimate" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2205" y="1715" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-35" value="upon expiry, your mirror image heals you for 30% of the damage dealt to enemies&amp;nbsp;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2185" y="1355" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-36" value="&lt;span style=&quot;&quot; data-start=&quot;1896&quot; data-end=&quot;1918&quot;&gt;When a Spirit dies&lt;/span&gt;, nearby enemies are cursed." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1902.5" y="1240" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-38" value="&lt;span style=&quot;&quot; data-start=&quot;2528&quot; data-end=&quot;2601&quot;&gt;Enemies cursed for 7+ seconds are instantly executed if under 10% HP&lt;/span&gt;." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2042.5" y="1600" width="225" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-41" value="&lt;strong data-start=&quot;2724&quot; data-end=&quot;2756&quot;&gt;[Ultimate]&lt;/strong&gt;&amp;nbsp;Map-wide zone. You gain +25% damage, +30% cooldown recovery. Spirits empowered by 25%" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2000" y="1955" width="293.75" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-42" value="Spirits have +50% stats inside zones." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2185" y="1240" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-43" value="1" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="2120" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-44" value="2" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1960" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-45" value="3" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="2280" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-46" value="4" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1960" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-47" value="5" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="2280" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-48" value="Nearby enemies lose morale (40% the enemy will not attack)." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2235" y="760" width="155" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="L5_kzNOQ6pKz4_PU6u-A-49" value="Cursed enemies have their attack speed reduced by &lt;span style=&quot;&quot; data-end=&quot;623&quot; data-start=&quot;616&quot;&gt;20%&lt;/span&gt;." style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2220" y="280" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-1" value="6" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="480" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-2" value="7" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="600" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-3" value="8" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-4" value="9" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-5" value="10" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="720" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-9" value="11" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-10" value="12" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-11" value="14" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="1080" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-12" value="13" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="960" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-13" value="17" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="1320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-14" value="18" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1320" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-15" value="16" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-16" value="15" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="1200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-17" value="19" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="1440" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-20" value="20" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="1560" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-21" value="21" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-22" value="22" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1680" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-23" value="25" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2120" y="1920" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-24" value="23" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="1800" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-26" value="24" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1800" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-28" value="your skill creates a smaller field for 3 seconds" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2180" y="995" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-29" value="&lt;span style=&quot;&quot; data-start=&quot;1223&quot; data-end=&quot;1301&quot;&gt;Casting a zone now also creates a smaller zone for each spirit on the field for the same duration&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="2000" y="1120" width="285" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-31" value="Enemy takes &lt;span style=&quot;&quot; data-end=&quot;1131&quot; data-start=&quot;1114&quot;&gt;echoed damage&lt;/span&gt; (20% of the last hit repeated after 1.5s delay)" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1891.88" y="760" width="176.25" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-33" value="&lt;span style=&quot;forced-color-adjust: none; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: transparent; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;Periodically&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span data-end=&quot;937&quot; data-start=&quot;928&quot; style=&quot;forced-color-adjust: none; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: transparent; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;roots&lt;/span&gt;&lt;span style=&quot;forced-color-adjust: none; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: transparent; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span&gt;&amp;nbsp;&lt;/span&gt;the enemy in place for 1 second every 5 seconds&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1880" y="400" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-35" value="Curse of Chains" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1930" y="340" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-36" value="&lt;b&gt;Curse of Reflection&lt;/b&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1915" y="220" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-37" value="&lt;b&gt;Curse of Frailty&lt;/b&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="2250" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-40" value="Curse of Weakness" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2240" y="340" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-41" value="Enemy is linked to 1–2 nearby units, the damage is shared between them (30% split)" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1867.5" y="1840" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-42" value="Curse of Binding" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1930" y="1780" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-43" value="Curse of Blindness" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2240" y="1780" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-44" value="Enemy&#39;s attacks have a &lt;strong data-start=&quot;1000&quot; data-end=&quot;1022&quot;&gt;50% chance to miss&lt;/strong&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2232.5" y="1840" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-45" value="When casting your ultimate, summon 2 more spirits that enherit 50% of your stats for the duration of the ultimate" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1880" y="1720" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-47" value="Every 2 seconds in a cursed zone, you and your spirits regain 1% HP" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2055.94" y="880" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-49" value="Each Curse increases damage taken by the enemy by 6%" style="text;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="2055.94" y="640" width="177.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-50" value="Bound by Misery" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2090" y="580" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-53" value="Spirit Conductor" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1927.5" y="940" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-54" value="Soulforge Twins" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2252.5" y="940" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-55" value="Mark of the Wretched" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2076.57" y="1060" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-56" value="Shattered Reality" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1930" y="1180" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-57" value="Tether of Agony" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2252.5" y="1180" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-58" value="Echoing Curse" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2255" y="1300" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-59" value="Witherstep" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1950" y="1300" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-61" value="Curse of Echoes" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1930.01" y="700" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-62" value="Curse of Despair" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2240" y="700" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-63" value="Innate Focus" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1222.5" y="100" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-64" value="Crippling Edge" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1050" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-65" value="Venom Kiss" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1385" y="220" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-66" value="Ambidexterity" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1060" y="340" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-67" value="Cutthroat Reach" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1371.25" y="340" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-68" value="Killer Instinct" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1217.5" y="460" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-69" value="Phantom Execution" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1038.75" y="580" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-70" value="Relentless Strikes" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1203.75" y="700" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-71" value="Opportunist’s Edge" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1207.5" y="820" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-73" value="&lt;strong data-start=&quot;1532&quot; data-end=&quot;1548&quot;&gt;Swift Blades&lt;/strong&gt;&lt;br data-start=&quot;1548&quot; data-end=&quot;1551&quot;&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1058.75" y="1060" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-75" value="&lt;strong data-start=&quot;1728&quot; data-end=&quot;1747&quot;&gt;Lacerating Flow&lt;/strong&gt;&lt;br data-start=&quot;1747&quot; data-end=&quot;1750&quot;&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1213.75" y="1180" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-76" value="Agonizing Blades" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1047.5" y="1300" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-77" value="Toxic Efficiency" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1372.5" y="1300" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-78" value="Acpuncture Therapy" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1045" y="1660" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-79" value="Unseen Predator" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1050" y="1540" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-82" value="Spirit Reaper" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1215" y="1900" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-83" value="Pulmonary Therapy" style="text;whiteSpace=wrap;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1361.25" y="1660" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-84" value="Blood Bath" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1223.75" y="1780" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-85" value="infectious Disease" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1365" y="580" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-86" value="Hemotoxin" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1231.25" y="940" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-87" value="Killer’s High" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1065" y="820" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-88" value="Executioner’s Might" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1370" y="820" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-89" value="Momentum Rush" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1372.5" y="1060" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-90" value="Curtain Call" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2105" y="1540" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-91" value="First Blood" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1223.75" y="1420" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-93" value="&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td data-start=&quot;1172&quot; data-end=&quot;1202&quot; data-col-size=&quot;sm&quot;&gt;&lt;strong data-start=&quot;1174&quot; data-end=&quot;1191&quot;&gt;Twilight Rift&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td data-col-size=&quot;md&quot; data-start=&quot;1202&quot; data-end=&quot;1270&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2100" y="455" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-95" value="Shadowstep Circle" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2085.94" y="1420" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-96" value="Mortal Drive" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1377.5" y="1540" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-98" value="Dark Conversion" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2250" y="1660" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-100" value="Rise of the Withered" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2083.13" y="100" width="140.31" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-101" value="Curse of Shattering" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2081.57" y="700" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-102" value="Dark Restoration" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2087.5" y="820" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-103" value="Twins of the Void" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1922.5" y="1660" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FkqtCQdwKv0MQqVCXlNJ-104" value="Curse King’s Reign" style="text;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2085" y="1900" width="140" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
