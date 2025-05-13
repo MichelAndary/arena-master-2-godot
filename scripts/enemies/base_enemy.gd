@@ -155,8 +155,14 @@ func perform_attack():
 func take_damage(amount, source=null):
 	health -= amount
 	
-	if debug_mode:
-		print(enemy_name + " took " + str(amount) + " damage! Health: " + str(health) + "/" + str(max_health))
+	# Show damage popup
+	DamageManager.show_damage(
+		amount, 
+		global_position,
+		DamageManager.NORMAL if source else DamageManager.TAKEN
+	)
+	
+	print(enemy_name + " took " + str(amount) + " damage! Health: " + str(health) + "/" + str(max_health))
 	
 	# Check if dead
 	if health <= 0:
@@ -187,6 +193,10 @@ func die(source=null):
 	queue_free()
 
 func drop_soul_essence():
+	# Use call_deferred to run this function after physics processing is complete
+	call_deferred("_drop_soul_essence_deferred")
+
+func _drop_soul_essence_deferred():
 	# Reference to the soul essence scene
 	var soul_essence_scene = load("res://scenes/pickups/soul_essence.tscn")
 	

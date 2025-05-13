@@ -1,7 +1,7 @@
 extends BaseCharacter
-class_name ShadowMonarch
+class_name Kairis
 
-# Shadow Monarch specific stats
+# Kairis specific stats
 var sp_points = 20  # Shadow Points
 var sp_max = 20
 var intelligence = 10  # Affects shadow command chance
@@ -11,12 +11,12 @@ var shadow_limit = 5  # Maximum number of shadows at once
 @onready var weapon_animator = $WeaponAnimator
 @onready var dagger_hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
 
-# Shadow Monarch signals
+# Kairis signals
 signal sp_changed(current, maximum)
 
 func _ready():
 	# Override base character properties
-	character_name = "Shadow Monarch"
+	character_name = "Kairis"
 	max_health = 120
 	health = max_health
 	base_damage = 15

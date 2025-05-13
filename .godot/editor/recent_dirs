@@ -1,8 +1,8 @@
+res://scripts/autoload
+res://scripts/ui
 res://scripts/pickups
 res://scripts
 res://scripts/levels
-res://scripts/ui
 res://scenes/enemies
 res://scripts/enemies
 res://scripts/characters
-res://scripts/autoload

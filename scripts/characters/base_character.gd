@@ -229,25 +229,17 @@ func auto_attack():
 	is_attacking = false
 
 func take_damage(amount):
-	print("\n--- PLAYER TAKE DAMAGE ---")
-	print("Character: " + character_name)
-	print("Current health: " + str(health))
-	print("Taking damage: " + str(amount))
+	# Print debug info
+	print(character_name + " is taking " + str(amount) + " damage!")
 	
-	# Apply damage
+	# Show damage popup in red (taken damage)
+	DamageManager.show_damage(amount, global_position, DamageManager.TAKEN)
+	
 	health -= amount
+	print(character_name + " now has " + str(health) + "/" + str(max_health) + " health")
 	
-	# Ensure health doesn't go below zero
-	if health < 0:
-		health = 0
+	update_health_display()
 	
-	print("New health: " + str(health))
-	print("--- END TAKE DAMAGE ---\n")
-	
-	# Update UI
-	emit_signal("health_changed", health, max_health)
-	
-	# Check if dead
 	if health <= 0:
 		die()
 

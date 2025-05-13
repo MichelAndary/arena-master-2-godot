@@ -47,13 +47,13 @@ func connect_player_signals(player):
 		if not player.health_changed.is_connected(Callable(self, "update_health_display")):
 			player.health_changed.connect(Callable(self, "update_health_display"))
 	
-	if player is ShadowMonarch and player.has_signal("sp_changed"):
+	if player is Kairis and player.has_signal("sp_changed"):
 		if not player.sp_changed.is_connected(Callable(self, "update_sp_display")):
 			player.sp_changed.connect(Callable(self, "update_sp_display"))
 	
 	# Initial update
 	update_health_display(player.health, player.max_health)
-	if player is ShadowMonarch:
+	if player is Kairis:
 		update_sp_display(player.sp_points, player.sp_max)
 
 func update_health_display(current, maximum):

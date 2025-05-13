@@ -31,13 +31,13 @@ var game_scene = "res://scenes/levels/basic_arena.tscn"
 
 # Character data
 var character_scenes = {
-	"Shadow Monarch": "res://scenes/characters/shadow_monarch.tscn",
+	"Kairis": "res://scenes/characters/kairis.tscn",
 	"Void Master": "res://scenes/characters/void_master.tscn",
 	"Thunder Empress": "res://scenes/characters/thunder_empress.tscn"
 }
 
 # Character unlocks
-var unlocked_characters = ["Shadow Monarch"]
+var unlocked_characters = ["Kairis"]
 
 func _ready():
 	# Initialize game

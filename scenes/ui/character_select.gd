@@ -1,7 +1,7 @@
 extends Control
 
-var selected_character = "Shadow Monarch"
-var unlocked_characters = ["Shadow Monarch"] # Start with only Shadow Monarch unlocked
+var selected_character = "Kairis"
+var unlocked_characters = ["Kairis"] # Start with only Kairis unlocked
 
 func _ready():
 	# Connect character slot buttons
@@ -14,8 +14,8 @@ func _ready():
 	$MainLayout/ActionButtons/BackButton.pressed.connect(_on_back_button_pressed)
 	$MainLayout/ActionButtons/StartButton.pressed.connect(_on_start_button_pressed)
 	
-	# Initialize with Shadow Monarch selected
-	update_character_display("Shadow Monarch")
+	# Initialize with Kairis selected
+	update_character_display("Kairis")
 	
 	# Set initial visual state of character slots
 	update_character_slots()
@@ -25,9 +25,9 @@ func update_character_display(character_name):
 	
 	# Update character description based on selected character
 	match character_name:
-		"Shadow Monarch":
-			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(0).text = "The Shadow Monarch can command shadows of fallen enemies."
-			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(1).text = "Lore: Originally a hunter who gained the power to raise shadows."
+		"Kairis":
+			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(0).text = "Kairis can command shadows of fallen enemies."
+			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(1).text = "Lore: A mysterious warrior who gained the power to control darkness."
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(2).text = "Pros: Strong army building, scaling power over time."
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(3).text = "Cons: Weaker early game, requires careful SP management."
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(4).text = "Special: Command ability lets you summon defeated enemies."
@@ -52,9 +52,9 @@ func update_character_display(character_name):
 				$MainLayout/CharacterInfoSection/CharacterDescription.get_child(i).text = "Character information not available."
 
 func update_character_slots():
-	# Character slot 1 is always Shadow Monarch for now
+	# Character slot 1 is always Kairis for now
 	var slot1 = $MainLayout/CharacterSelectionBar/CharacterSlots/CharacterSlot1
-	slot1.text = "Shadow Monarch"
+	slot1.text = "Kairis"
 	
 	# Other slots would be populated from save data or unlocked characters
 	# For now, they're mostly placeholder/locked
@@ -77,7 +77,7 @@ func update_character_slots():
 func _on_character_slot_pressed(slot_number):
 	var character_name = ""
 	match slot_number:
-		1: character_name = "Shadow Monarch"
+		1: character_name = "Kairis"
 		2: character_name = "Void Master"
 		3: character_name = "Thunder Empress"
 	

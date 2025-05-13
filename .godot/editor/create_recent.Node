@@ -1,10 +1,10 @@
+Label
+Node2D
 AnimationPlayer
 CollisionShape2D
 Area2D
 ColorRect
 Sprite2D
-Node2D
-Label
 Node
 Camera2D
 CharacterBody2D
@@ -12,4 +12,3 @@ Control
 VBoxContainer
 ProgressBar
 HBoxContainer
-CanvasLayer

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://27qju6mnlrr7"]
 
-[ext_resource type="Script" uid="uid://cu0r225osmklj" path="res://scripts/characters/shadow_monarch.gd" id="1_k5vcc"]
+[ext_resource type="Script" uid="uid://cu0r225osmklj" path="res://scripts/characters/kairis.gd" id="1_8k3e5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3emnh"]
 radius = 20.0
@@ -58,7 +58,7 @@ _data = {
 }
 
 [node name="ShadowMonarch" type="CharacterBody2D" groups=["player"]]
-script = ExtResource("1_k5vcc")
+script = ExtResource("1_8k3e5")
 
 [node name="Collision" type="CollisionShape2D" parent="." groups=["player"]]
 shape = SubResource("CircleShape2D_3emnh")
