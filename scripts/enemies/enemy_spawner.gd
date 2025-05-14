@@ -11,8 +11,13 @@ var active_enemies = 0
 var signal_connected = false
 
 func _ready():
+	# Add to group for easy access
+	add_to_group("enemy_spawner")
 	# Set the total number of enemies for this stage
 	GameManager.enemies_total = max_total_enemies
+	
+	# Reset enemies_killed to ensure it starts from 0 for this stage
+	GameManager.enemies_killed = 0
 	
 	# Connect to enemy_killed signal to track active enemies
 	# IMPORTANT: Only connect once to avoid recursive calls
@@ -76,36 +81,93 @@ func _on_enemy_killed():
 	if enemies_spawned >= max_total_enemies and active_enemies <= 0:
 		# All enemies defeated, open portal
 		print("All enemies defeated! Opening portal...")
+		
+		# We need to give a slight delay to ensure the last enemy's
+		# soul essence has been created before we try to collect it
+		await get_tree().create_timer(0.5).timeout
+		
+		 # Freeze time - add this line
+		GameManager.freeze_time = true
+		
+		# Apply glitch effect to timer - add this line
+		var hud = get_tree().get_first_node_in_group("game_hud")
+		if hud and hud.has_method("start_timer_glitch_effect"):
+			hud.start_timer_glitch_effect()
+		
 		open_portal()
 
 func open_portal():
-	# In a full implementation, this would spawn a portal entity
-	# For now, just notify the game that the stage is completed
-	print("Portal opened! Stage complete.")
+	print("All enemies defeated! Opening portals...")
 	
-	# Wait a bit and then complete stage
-	await get_tree().create_timer(3.0).timeout
-	GameManager.complete_stage()
+	# Collect 50% of uncollected soul essence
+	collect_remaining_essence()
+	
+	# Determine which portals to spawn
+	var spawn_shop = randf() < 0.15  # 15% chance
+	var spawn_challenge = randf() < 0.10  # 10% chance
+	
+	# Use absolute coordinates for a 1920x1080 stage
+	var stage_width = 1920
+	var stage_height = 1080
+	
+	# Create a reference to the level node (or main scene node)
+	var level_node = get_tree().current_scene
+	
+	# Main portal - CENTER-NORTH position (always spawns)
+	var main_portal = load("res://scenes/portals/portal.tscn").instantiate()
+	main_portal.portal_type = main_portal.PortalType.NEXT_STAGE
+	# Position it in the center-top area
+	main_portal.position = Vector2(stage_width / 2, 200)
+	level_node.add_child(main_portal)
+	main_portal.activate()
+	
+	# Shop portal - WEST position (chance-based)
+	if spawn_shop:
+		var shop_portal = load("res://scenes/portals/portal.tscn").instantiate()
+		shop_portal.portal_type = shop_portal.PortalType.SHOP
+		# Position it on the left side, center-height
+		shop_portal.position = Vector2(200, stage_height / 2)
+		level_node.add_child(shop_portal)
+		shop_portal.activate()
+	
+	# Challenge portal - EAST position (chance-based)
+	if spawn_challenge:
+		var challenge_portal = load("res://scenes/portals/portal.tscn").instantiate()
+		challenge_portal.portal_type = challenge_portal.PortalType.CHALLENGE
+		# Position it on the right side, center-height
+		challenge_portal.position = Vector2(stage_width - 200, stage_height / 2)
+		level_node.add_child(challenge_portal)
+		challenge_portal.activate()
 
 func collect_remaining_essence():
 	# Find all soul essence items in the scene
 	var essence_items = get_tree().get_nodes_in_group("soul_essence")
 	var total_collected = 0
 	
-	# For each item, collect 50% of its value
+	# Get player reference
+	var player = get_tree().get_first_node_in_group("player")
+	
+	# For each item, collect 50% of its value and magnetize
 	for item in essence_items:
+		# Calculate 50% value
 		var half_value = ceil(item.value / 2.0)  # Round up to nearest integer
 		total_collected += half_value
 		
-		# Create a pickup effect
-		var tween = create_tween()
-		tween.tween_property(item, "scale", Vector2(0, 0), 0.2)
-		tween.tween_callback(item.queue_free)
-	
-	# Add to player's soul essence
-	if total_collected > 0:
-		GameManager.soul_essence += total_collected
-		print("Collected " + str(total_collected) + " remaining Soul Essence at 50% value")
+		# Update item's value to the reduced amount
+		item.value = half_value
 		
-		# Update UI
-		GameManager.emit_signal("soul_essence_collected")  # Use the proper signal
+		# Find player if not already found
+		if player and not item.player:
+			item.player = player
+		
+		# Set to magnetized - move quickly to player
+		item.magnetized = true
+		item.move_speed = 300  # Make them move faster than normal pickup
+		
+		print("Soul essence item magnetized with value: " + str(half_value))
+	
+	print("Total soul essence to be collected: " + str(total_collected))
+	print("===DEBUG===")
+	print("Total soul essence to be collected: " + str(total_collected))
+	print("Current GameManager.soul_essence before collection: " + str(GameManager.soul_essence))
+	print("===========")

@@ -23,8 +23,11 @@ func spawn_player():
 			
 		player.global_position = spawn_position
 		
+		
 		# Add player to scene
 		add_child(player)
+		
+		
 		
 		# Connect player to HUD
 		var hud = $GameUI/HUD
@@ -32,3 +35,7 @@ func spawn_player():
 			hud.connect_player_signals(player)
 		
 		print("Player spawned: " + GameManager.selected_character)
+	if GameManager.current_stage > 1 and GameManager.player_health > 0:
+		player.health = GameManager.player_health
+		# Make sure to update the health display
+		player.update_health_display()

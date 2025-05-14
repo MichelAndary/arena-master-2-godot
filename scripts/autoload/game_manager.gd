@@ -3,12 +3,15 @@ extends Node
 # Game state
 enum GameState {MAIN_MENU, CHARACTER_SELECT, PLAYING, GAME_OVER}
 var current_state = GameState.MAIN_MENU
+var freeze_time = false
 
 # Player data
 var selected_character = "Shadow Monarch"
 var player_level = 1
 var current_fragments = 0  # Persistent currency
 var soul_essence = 0  # In-run currency
+var saved_soul_essence = 0
+var player_health = 0
 
 # Run data
 var current_stage = 0
@@ -56,15 +59,38 @@ func start_new_game():
 	get_tree().change_scene_to_file(game_scene)
 
 func complete_stage():
+	# Save the current soul essence before scene change
+	saved_soul_essence = soul_essence
+	print("GameManager: Saved soul essence before stage change: " + str(saved_soul_essence))
+	
+	# Rest of the existing function...
 	current_stage += 1
 	emit_signal("stage_completed")
-	
-	# Award fragments (persistent currency)
+	freeze_time = false
+	enemies_killed = 0
 	current_fragments += 5 * current_stage
 	
-	# This would transition to next stage
-	# For now, just restart the same arena
+	# This is critical - we need to delay the scene change slightly
+	# to ensure our saved value persists
+	call_deferred("_deferred_scene_change")
+
+func _deferred_scene_change():
+	# Switch scenes
 	get_tree().reload_current_scene()
+	
+	# We need to wait a tiny bit for the scene to load
+	await get_tree().process_frame
+	
+	# Restore soul essence
+	soul_essence = saved_soul_essence
+	print("GameManager: Restored soul essence after stage change: " + str(soul_essence))
+	
+	# Force UI update
+	await get_tree().process_frame
+	var hud = get_tree().get_first_node_in_group("game_hud")
+	if hud and hud.has_method("update_soul_essence_display"):
+		hud.update_soul_essence_display()
+		print("GameManager: Manually updated HUD with soul essence: " + str(soul_essence))
 
 func game_over():
 	current_state = GameState.GAME_OVER

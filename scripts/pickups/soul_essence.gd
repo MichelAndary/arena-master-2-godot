@@ -3,7 +3,7 @@ extends Area2D
 var value = 1  # Default value of this soul essence
 var pickup_radius = 80  # How close player needs to be for automatic pickup
 var magnetized = false  # If true, will move toward player
-var move_speed = 200  # Speed at which it moves toward player
+var move_speed = 300  # Speed at which it moves toward player
 var player = null
 var picked_up = false  # Flag to prevent multiple pickups
 
@@ -57,28 +57,33 @@ func _on_body_entered(body):
 		pickup()
 
 func pickup():
+	# Prevent double pickup
 	if picked_up:
 		return
-		
+	
 	picked_up = true
+	# Store the value being added
+	var pickup_value = value
 	
-	# Store the value to display
-	var essence_value = value
-	
-	# Get current total before adding
-	var before_total = GameManager.soul_essence
+	# Debug print before
+	print("PICKUP: Before - GameManager soul essence: " + str(GameManager.soul_essence))
 	
 	# Add to player's soul essence
-	GameManager.soul_essence += essence_value
+	GameManager.soul_essence += pickup_value
 	
-	# Get new total
-	var after_total = GameManager.soul_essence
+	# Debug print after
+	print("PICKUP: After - GameManager soul essence: " + str(GameManager.soul_essence) + " (added " + str(pickup_value) + ")")
 	
-	# Notify UI
+	# Explicitly update UI by finding the HUD and calling the update function
+	var hud = get_tree().get_first_node_in_group("game_hud")
+	if hud and hud.has_method("update_soul_essence_display"):
+		hud.update_soul_essence_display()
+		print("PICKUP: Manually called HUD update")
+	else:
+		print("PICKUP: ERROR - HUD not found for updating")
+	
+	# Emit signal (this wasn't working before)
 	GameManager.emit_signal("soul_essence_collected")
-	
-	# Print debug info
-	print("Picked up " + str(essence_value) + " Soul Essence! Before: " + str(before_total) + ", After: " + str(after_total))
 	
 	# Play pickup effect before disappearing
 	var tween = create_tween()

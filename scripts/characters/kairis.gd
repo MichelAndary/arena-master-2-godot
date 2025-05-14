@@ -11,6 +11,16 @@ var shadow_limit = 5  # Maximum number of shadows at once
 @onready var weapon_animator = $WeaponAnimator
 @onready var dagger_hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
 
+#Skill
+var skill_dash_speed = 800
+var skill_dash_distance = 350  # Maximum dash distance
+var is_skill_dashing = false
+var is_invulnerable = false
+var dash_rect_width = 60  # Width of the dash attack rectangle
+var dash_path_start = Vector2.ZERO  # Start position of dash
+var dash_path_end = Vector2.ZERO    # End position of dash
+var dash_path_visible = false       # Whether to draw the path
+
 # Kairis signals
 signal sp_changed(current, maximum)
 
@@ -35,33 +45,127 @@ func _ready():
 
 # Override skill method (E key)
 func use_skill():
-	if current_state != State.DEAD and skill_timer <= 0:
+	if current_state != State.DEAD and skill_timer <= 0 and !is_skill_dashing:
 		print("Using Shadow Strike")
+		
+		# Get mouse position in world coordinates
+		var mouse_pos = get_global_mouse_position()
+		
+		# Calculate dash direction and target
+		var dash_direction = (mouse_pos - global_position).normalized()
+		var dash_target = global_position + (dash_direction * min(global_position.distance_to(mouse_pos), skill_dash_distance))
+		
+		# Set up dash path for drawing
+		dash_path_start = global_position
+		dash_path_end = dash_target
+		dash_path_visible = true
+		
+		# Force redraw to show path
+		queue_redraw()
+		
+		# Wait briefly to show the dash path
+		await get_tree().create_timer(0.15).timeout
+		
+		# Start dash
 		current_state = State.USING_SKILL
 		skill_timer = skill_cooldown
+		is_skill_dashing = true
+		is_invulnerable = true
 		
-		# Shadow Strike logic - dash and damage enemies in path
-		var strike_direction = input_direction
-		if strike_direction == Vector2.ZERO and target_enemy:
-			strike_direction = (target_enemy.global_position - global_position).normalized()
-		elif strike_direction == Vector2.ZERO:
-			strike_direction = Vector2.RIGHT  # Default direction if no input or target
+		# Store initial position for damage calculation
+		var start_pos = global_position
 		
-		# Move in strike direction
-		velocity = strike_direction * dash_speed * 1.5
-		move_and_slide()
+		# Make character semi-transparent during dash
+		modulate.a = 0.5
 		
-		# Deal damage to enemies in path
-		for enemy in enemies_in_range:
-			# Calculate if enemy is in the strike path
-			var angle_to_enemy = abs(strike_direction.angle_to((enemy.global_position - global_position).normalized()))
-			if angle_to_enemy < 0.5:  # About 30 degrees
+		# Perform the dash
+		var tween = create_tween()
+		tween.tween_property(self, "global_position", dash_target, 0.2)
+		tween.tween_callback(func(): _finish_skill_dash())
+		
+		# Damage enemies in the path
+		await get_tree().process_frame  # Wait a frame to ensure tween starts
+		_damage_enemies_in_rectangle(start_pos, dash_target)
+
+# Override the _draw method to draw the dash path
+func _draw():
+	if dash_path_visible:
+		var direction = (dash_path_end - dash_path_start).normalized()
+		var length = dash_path_start.distance_to(dash_path_end)
+		
+		# Calculate rectangle corners (in local coordinates)
+		var perp = Vector2(-direction.y, direction.x) * (dash_rect_width/2)
+		var start_to_local = dash_path_start - global_position
+		var end_to_local = dash_path_end - global_position
+		
+		var points = [
+			start_to_local + perp,  # Top-left
+			end_to_local + perp,    # Top-right
+			end_to_local - perp,    # Bottom-right
+			start_to_local - perp   # Bottom-left
+		]
+		
+		# Draw filled rectangle
+		draw_colored_polygon(points, Color(1, 0, 0, 0.5))
+
+# Function to damage enemies in the rectangular path
+func _damage_enemies_in_rectangle(start_pos, end_pos):
+	# Get all enemies in the scene
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var direction = (end_pos - start_pos).normalized()
+	var dash_length = start_pos.distance_to(end_pos)
+	var half_width = dash_rect_width / 2
+	
+	# Perpendicular vector to the dash direction
+	var perp = Vector2(-direction.y, direction.x)
+	
+	# For debugging
+	print("Checking enemies in dash rectangle from " + str(start_pos) + " to " + str(end_pos))
+	
+	# Check each enemy
+	for enemy in enemies:
+		var enemy_pos = enemy.global_position
+		
+		# Vector from start to enemy
+		var to_enemy = enemy_pos - start_pos
+		
+		# Project onto dash direction
+		var proj_along = to_enemy.dot(direction)
+		
+		# Check if within dash length
+		if proj_along >= 0 and proj_along <= dash_length:
+			# Project onto perpendicular direction
+			var proj_perp = abs(to_enemy.dot(perp))
+			
+			# Check if within rectangle width
+			if proj_perp <= half_width:
 				if enemy.has_method("take_damage"):
-					enemy.take_damage(base_damage * 2, self)  # Double damage
+					enemy.take_damage(base_damage * 2, self)
+					print("Shadow Strike hit " + enemy.name)
+
+# Function to clean up after dash
+func _finish_skill_dash():
+	is_skill_dashing = false
+	is_invulnerable = false
+	modulate.a = 1.0  # Restore opacity
+	current_state = State.IDLE
+	
+	# Hide dash path
+	dash_path_visible = false
+	queue_redraw()
+
+# Override take_damage to check for invulnerability
+func take_damage(amount):
+	if is_invulnerable:
+		print("Attack blocked - invulnerable during skill!")
+		return
 		
-		# Return to normal state
-		await get_tree().create_timer(0.5).timeout
-		current_state = State.IDLE
+	# Call parent implementation
+	super.take_damage(amount)
+	
+	
+	
+	
 
 # Override ultimate method (Q key)
 func use_ultimate():

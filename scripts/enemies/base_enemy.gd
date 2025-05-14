@@ -167,10 +167,14 @@ func take_damage(amount, source=null):
 	# Check if dead
 	if health <= 0:
 		die(source)
-	else:
-		# Briefly stun
-		stun_timer = 0.3
-		current_state = State.STUNNED
+	
+	# REMOVE THESE LINES:
+	# else:
+	#    # Briefly stun
+	#    stun_timer = 0.3
+	#    current_state = State.STUNNED
+	
+	# The enemy will now continue in its current state even after being hit
 
 func die(source=null):
 	# Change state to dead
