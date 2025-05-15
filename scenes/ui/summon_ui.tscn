@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://db3ipifw60p02"]
+
+[ext_resource type="Script" uid="uid://bahw7wnhxe7ts" path="res://scenes/ui/summon_ui.gd" id="1_cpo00"]
+
+[node name="SummonUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cpo00")
+
+[node name="SummonPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="SummonPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Command Spirits"
+horizontal_alignment = 1
+
+[node name="SPLabel" type="Label" parent="SummonPanel"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 158.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 18
+text = "SP: 20/20"
+
+[node name="ShadowsGrid" type="GridContainer" parent="SummonPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="SummonPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="SummonButton" type="Button" parent="SummonPanel/ButtonsContainer"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Summon"
+
+[node name="CancelButton" type="Button" parent="SummonPanel/ButtonsContainer"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Cancel"

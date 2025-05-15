@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc2nie8u32yeh"]
+
+[ext_resource type="Script" uid="uid://bahw7wnhxe7ts" path="res://scenes/ui/summon_ui.gd" id="1_o6rhw"]
+[ext_resource type="Script" uid="uid://ft5mjcx1yps6" path="res://scenes/ui/ui_test.gd" id="1_rd2ib"]
+
+[node name="UITest" type="Node2D"]
+script = ExtResource("1_rd2ib")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="SummonUIPlaceholder" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o6rhw")
+
+[node name="TestButton" type="Button" parent="UI"]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 235.0
+offset_bottom = 131.0
+text = "Test Summon UI"

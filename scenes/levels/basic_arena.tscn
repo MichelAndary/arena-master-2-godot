@@ -1,15 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn7qe66bxbnpd"]
+[gd_scene load_steps=15 format=3 uid="uid://dn7qe66bxbnpd"]
 
 [ext_resource type="Script" uid="uid://bmaxu86kw7mxy" path="res://scripts/ui/game_hud.gd" id="1_8q2ou"]
 [ext_resource type="Script" uid="uid://64xf3aqiguh7" path="res://scripts/levels/basic_arena.gd" id="1_t4pi5"]
 [ext_resource type="Script" uid="uid://ppbkyxn78h3m" path="res://scripts/enemies/enemy_spawner.gd" id="1_t47ln"]
 [ext_resource type="PackedScene" uid="uid://dv6gpsrt0d2ln" path="res://scenes/enemies/basic_enemy.tscn" id="2_4ecjx"]
+[ext_resource type="Texture2D" uid="uid://dwp12ws0g33yv" path="res://assets/ui/in_game/kairis_portrait_frame.png" id="3_cojk6"]
+[ext_resource type="Script" uid="uid://cvqrbw4vsrxto" path="res://assets/ui/abilities_ui.gd" id="3_ctq2s"]
+[ext_resource type="Texture2D" uid="uid://c48agaoi14a6e" path="res://assets/ui/in_game/kairis_skill_frame.png" id="4_1pcbl"]
+[ext_resource type="Texture2D" uid="uid://ceq034h4fop3h" path="res://assets/ui/in_game/cooldown_overlay.png" id="5_ctq2s"]
+[ext_resource type="Texture2D" uid="uid://8v542ccq7q61" path="res://assets/ui/in_game/kairis_ultimate_frame.png" id="6_5o8ei"]
+[ext_resource type="Shader" uid="uid://cll51g0nucewp" path="res://assets/ui/in_game/cooldown_shader.gdshader" id="6_nht3v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfk4g"]
 bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t47ln"]
 bg_color = Color(0.501961, 0, 0.501961, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xeuuy"]
+shader = ExtResource("6_nht3v")
+shader_parameter/progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xe6o0"]
+shader = ExtResource("6_nht3v")
+shader_parameter/progress = 0.0
 
 [node name="BasicArena" type="Node2D" groups=["game_scene"]]
 script = ExtResource("1_t4pi5")
@@ -98,6 +112,111 @@ horizontal_alignment = 1
 [node name="RightSpaceHolder" type="Control" parent="GameUI/HUD/TopBarContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="AbilitiesUI" type="Control" parent="GameUI"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_bottom = -20.0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("3_ctq2s")
+
+[node name="AbilitiesContainer" type="HBoxContainer" parent="GameUI/AbilitiesUI"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -71.0
+offset_right = 289.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="CharacterPortrait" type="TextureRect" parent="GameUI/AbilitiesUI/AbilitiesContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("3_cojk6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SkillButton" type="TextureRect" parent="GameUI/AbilitiesUI/AbilitiesContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("4_1pcbl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CooldownOverlay" type="TextureRect" parent="GameUI/AbilitiesUI/AbilitiesContainer/SkillButton"]
+visible = false
+material = SubResource("ShaderMaterial_xeuuy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ctq2s")
+expand_mode = 1
+
+[node name="CooldownLabel" type="Label" parent="GameUI/AbilitiesUI/AbilitiesContainer/SkillButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="UltimateButton" type="TextureRect" parent="GameUI/AbilitiesUI/AbilitiesContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("6_5o8ei")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CooldownOverlay" type="TextureRect" parent="GameUI/AbilitiesUI/AbilitiesContainer/UltimateButton"]
+visible = false
+material = SubResource("ShaderMaterial_xe6o0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ctq2s")
+expand_mode = 1
+
+[node name="CooldownLabel" type="Label" parent="GameUI/AbilitiesUI/AbilitiesContainer/UltimateButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("1_t47ln")

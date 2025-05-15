@@ -2,7 +2,14 @@ extends Control
 
 var selected_character = "Kairis"
 var unlocked_characters = ["Kairis"] # Start with only Kairis unlocked
-
+var character_portraits = {
+	"Kairis": "res://assets/characters/portraits/kairisPortrait.png",
+	}
+	
+var character_icons = {
+	"Kairis": "res://assets/characters/icons/kairisIcon.png",
+	}
+	
 func _ready():
 	# Connect character slot buttons
 	for i in range(1, 8): # For 7 character slots
@@ -31,6 +38,13 @@ func update_character_display(character_name):
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(2).text = "Pros: Strong army building, scaling power over time."
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(3).text = "Cons: Weaker early game, requires careful SP management."
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(4).text = "Special: Command ability lets you summon defeated enemies."
+			
+			# Load the texture at runtime
+			var portrait_path = character_portraits[character_name]
+			var portrait_texture = load(portrait_path)
+	
+			# Now assign the loaded texture
+			$MainLayout/CharacterInfoSection/CharacterImagePanel/CharacterPortrait.texture = portrait_texture
 			
 		"Void Master":
 			$MainLayout/CharacterInfoSection/CharacterDescription.get_child(0).text = "The Void Master manipulates space and creates barriers."

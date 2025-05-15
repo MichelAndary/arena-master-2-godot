@@ -1,6 +1,19 @@
 extends BaseCharacter
 class_name Kairis
 
+# Create a Shadow data class to store enemy info
+class ShadowData:
+	var enemy_type = ""
+	var max_health = 0
+	var damage = 0
+	var sp_cost = 1
+	
+	func _init(type, health, dmg, cost=1):
+		enemy_type = type
+		max_health = health
+		damage = dmg
+		sp_cost = cost
+
 # Kairis specific stats
 var sp_points = 20  # Shadow Points
 var sp_max = 20
@@ -21,6 +34,12 @@ var dash_path_start = Vector2.ZERO  # Start position of dash
 var dash_path_end = Vector2.ZERO    # End position of dash
 var dash_path_visible = false       # Whether to draw the path
 
+#Ultimate
+var available_shadows = []
+var max_available_shadows = 20  # Maximum number we'll track
+var summon_ui_scene = preload("res://scenes/ui/summon_ui.tscn")
+var summon_ui = null
+
 # Kairis signals
 signal sp_changed(current, maximum)
 
@@ -38,10 +57,24 @@ func _ready():
 	# Call parent ready
 	super._ready()
 
-# Connect dagger hit area signals
+	# Connect dagger hit area signals
 	if has_node("WeaponSystem/DaggerHolder/DaggerHitArea"):
 		var hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
 		hit_area.body_entered.connect(_on_dagger_hit_area_body_entered)
+		
+	# Create and add the summon UI
+	summon_ui = summon_ui_scene.instantiate()
+	summon_ui.visible = false  # Start hidden
+	
+	# Connect signals from the UI
+	summon_ui.shadows_summoned.connect(_on_shadows_summoned)
+	summon_ui.summon_cancelled.connect(_on_summon_cancelled)
+	
+	# Add to a CanvasLayer to ensure it appears on top
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.layer = 10  # High layer number to be on top
+	add_child(canvas_layer)
+	canvas_layer.add_child(summon_ui)
 
 # Override skill method (E key)
 func use_skill():
@@ -172,14 +205,17 @@ func use_ultimate():
 	if current_state != State.DEAD and ultimate_timer <= 0:
 		print("Using Command ability")
 		current_state = State.USING_ULTIMATE
-		ultimate_timer = ultimate_cooldown
 		
-		# Command logic - summon shadows around the player
-		summon_shadows()
-		
-		# Return to normal state
-		await get_tree().create_timer(1.0).timeout
-		current_state = State.IDLE
+		# Check if there are any shadows available
+		if available_shadows.size() > 0:
+			# Show the summon UI
+			summon_ui.show_summon_ui(self, available_shadows)
+		else:
+			print("No shadows available to summon!")
+			# Start cooldown anyway
+			ultimate_timer = ultimate_cooldown
+			# Return to normal state
+			current_state = State.IDLE
 
 func summon_shadows():
 	# In a full implementation, this would open a UI for selecting shadows to summon
@@ -202,14 +238,11 @@ func summon_shadows():
 	update_sp_display()
 
 func update_sp_display():
-	# Update UI with SP values
 	emit_signal("sp_changed", sp_points, sp_max)
 
 # Override when enemy killed
 func on_enemy_killed(enemy):
-	# When Shadow Monarch kills an enemy, there's a chance to gain SP
-	
-	# Sample logic: 20% chance to gain 1 SP point
+	# Original implementation for SP gain
 	if randf() < 0.2:
 		sp_points += 1
 		if sp_points > sp_max:
@@ -217,8 +250,41 @@ func on_enemy_killed(enemy):
 		print("Gained 1 SP from defeated enemy. Total: " + str(sp_points))
 		update_sp_display()
 	
-	# In a full implementation, the enemy would be added to available summons
-	print("Enemy added to available summons list")
+	# Add enemy to available shadows list
+	var shadow_cost = 1
+	
+	# You could determine cost based on enemy type or properties
+	# Check if enemy has the property before accessing it
+	if enemy.has_method("get") or enemy.has_method("get_name"):
+		var enemy_name = ""
+		if enemy.has_method("get_name"):
+			enemy_name = enemy.get_name().to_lower()
+		else:
+			# Try to get the enemy name from the node name
+			enemy_name = enemy.name.to_lower()
+		
+		# Now check the name
+		if "medium" in enemy_name or (enemy.has_variable("max_health") and enemy.max_health > 100):
+			shadow_cost = 3
+		elif "large" in enemy_name or "boss" in enemy_name:
+			shadow_cost = 5
+	
+	# Create shadow data entry
+	var shadow = ShadowData.new(
+		enemy.name,  # Use node name instead of enemy_type
+		enemy.max_health if enemy.has_variable("max_health") else 30,
+		enemy.damage if enemy.has_variable("damage") else 5,
+		shadow_cost
+	)
+	
+	# Add to available shadows
+	available_shadows.append(shadow)
+	
+	# Keep list at maximum size
+	if available_shadows.size() > max_available_shadows:
+		available_shadows.remove_at(0)  # Remove oldest
+	
+	print("Added " + enemy.name + " to available shadows (Cost: " + str(shadow_cost) + " SP)")
 
 func _on_dagger_hit_area_body_entered(body):
 	if body.is_in_group("enemies") and is_attacking:
@@ -226,3 +292,68 @@ func _on_dagger_hit_area_body_entered(body):
 		if body.has_method("take_damage"):
 			body.take_damage(base_damage, self)
 			print("Dagger hit enemy: " + body.name)
+
+
+func _on_shadows_summoned(selected_shadows):
+	print("Summoning " + str(selected_shadows.size()) + " shadows")
+	
+	# Apply cooldown only after confirmation
+	ultimate_timer = ultimate_cooldown
+	
+	# Calculate total SP cost
+	var total_sp_cost = 0
+	for shadow in selected_shadows:
+		total_sp_cost += shadow.sp_cost
+	
+	# Deduct SP
+	sp_points -= total_sp_cost
+	if sp_points < 0:
+		sp_points = 0
+	
+	# Update UI
+	update_sp_display()
+	
+	# Summon the selected shadows
+	for shadow in selected_shadows:
+		spawn_shadow(shadow)
+	
+	# Return to normal state
+	current_state = State.IDLE
+
+# Handle cancellation
+func _on_summon_cancelled():
+	print("Shadow summoning cancelled")
+	
+	# Apply cooldown anyway
+	ultimate_timer = ultimate_cooldown
+	
+	# Return to normal state
+	current_state = State.IDLE
+
+# Spawn a shadow entity from the data
+func spawn_shadow(shadow_data):
+	# For now, just create a simple ColorRect as a placeholder
+	var shadow = Node2D.new()
+	shadow.name = "Shadow_" + shadow_data.enemy_type
+	
+	# Create visual representation
+	var visual = ColorRect.new()
+	visual.color = Color(0.2, 0.2, 0.2, 0.8)  # Dark gray, semi-transparent
+	visual.size = Vector2(30, 30)
+	visual.position = Vector2(-15, -15)  # Center it
+	shadow.add_child(visual)
+	
+	# Position shadow near the player
+	var offset = Vector2(
+		randf_range(-50, 50),
+		randf_range(-50, 50)
+	)
+	shadow.position = global_position + offset
+	
+	# Add to scene
+	get_parent().add_child(shadow)
+	
+	# Add to active shadows list
+	shadow_list.append(shadow)
+	
+	print("Spawned shadow: " + shadow_data.enemy_type)

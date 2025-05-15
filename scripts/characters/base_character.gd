@@ -38,6 +38,8 @@ var enemies_in_range = []
 # Signals
 signal health_changed(current, maximum)
 signal died
+signal skill_used
+signal ultimate_used
 
 func _ready():
 	# Ensure player is in the player group
@@ -167,6 +169,8 @@ func use_skill():
 	if current_state != State.DEAD:
 		print("Using skill")
 		current_state = State.USING_SKILL
+		# Emit signal that skill was used
+		emit_signal("skill_used")
 		skill_timer = skill_cooldown
 
 func use_ultimate():
@@ -174,6 +178,8 @@ func use_ultimate():
 	if current_state != State.DEAD:
 		print("Using ultimate")
 		current_state = State.USING_ULTIMATE
+		# Emit signal that ultimate was used
+		emit_signal("ultimate_used")
 		ultimate_timer = ultimate_cooldown
 
 func check_for_targets():

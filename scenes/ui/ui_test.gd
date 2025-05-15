@@ -1,0 +1,51 @@
+extends Node2D
+
+var test_shadows = []  # Will hold dummy shadow data
+
+func _ready():
+	for child in $UI.get_children():
+		if child.name == "SummonUIPlaceholder" or child.name == "SummonUI":
+			child.queue_free()
+	# Create SummonUI instance
+	var summon_ui_scene = load("res://scenes/ui/summon_ui.tscn")
+	if summon_ui_scene:
+		var summon_ui = summon_ui_scene.instantiate()
+		summon_ui.name = "SummonUI"
+		$UI.add_child(summon_ui)
+		
+		# Connect signals
+		summon_ui.shadows_summoned.connect(_on_shadows_summoned)
+		summon_ui.summon_cancelled.connect(_on_summon_cancelled)
+	else:
+		print("Failed to load SummonUI scene")
+		
+	# Create some dummy shadow data
+	for i in range(10):
+		var shadow = {
+			"enemy_type": "Enemy " + str(i),
+			"max_health": 30 + i * 5,
+			"damage": 5 + i,
+			"sp_cost": 1
+		}
+		test_shadows.append(shadow)
+	
+	# Connect test button
+	$UI/TestButton.pressed.connect(_on_test_button_pressed)
+	
+	# Connect SummonUI signals
+	$UI/SummonUIPlaceholder.shadows_summoned.connect(_on_shadows_summoned)
+	$UI/SummonUIPlaceholder.summon_cancelled.connect(_on_summon_cancelled)
+
+func _on_test_button_pressed():
+	# Show summon UI with dummy data
+	var dummy_player = {
+		"sp_points": 20,
+		"sp_max": 20
+	}
+	$UI/SummonUI.show_summon_ui(dummy_player, test_shadows)
+
+func _on_shadows_summoned(selected_shadows):
+	print("Shadows summoned signal received")
+
+func _on_summon_cancelled():
+	print("Summon cancelled signal received") 
