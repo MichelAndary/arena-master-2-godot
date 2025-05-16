@@ -63,13 +63,17 @@ func complete_stage():
 	saved_soul_essence = soul_essence
 	print("GameManager: Saved soul essence before stage change: " + str(saved_soul_essence))
 	
-	# Rest of the existing function...
 	current_stage += 1
 	emit_signal("stage_completed")
 	freeze_time = false
 	enemies_killed = 0
 	current_fragments += 5 * current_stage
 	
+	# Find and reset player's summoned shadows list if player exists
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.has_method("reset_summoned_shadows"):
+		player.reset_summoned_shadows()
+		
 	# This is critical - we need to delay the scene change slightly
 	# to ensure our saved value persists
 	call_deferred("_deferred_scene_change")

@@ -13,6 +13,12 @@ class ShadowData:
 		max_health = health
 		damage = dmg
 		sp_cost = cost
+	func is_equal(other):
+		# Two shadow data objects are considered equal if their properties match
+		return enemy_type == other.enemy_type and \
+		max_health == other.max_health and \
+		damage == other.damage and \
+		sp_cost == other.sp_cost
 
 # Kairis specific stats
 var sp_points = 20  # Shadow Points
@@ -39,6 +45,7 @@ var available_shadows = []
 var max_available_shadows = 20  # Maximum number we'll track
 var summon_ui_scene = preload("res://scenes/ui/summon_ui.tscn")
 var summon_ui = null
+var summoned_shadows = []  # List of shadow data that has already been summoned
 
 # Kairis signals
 signal sp_changed(current, maximum)
@@ -66,13 +73,14 @@ func _ready():
 	summon_ui = summon_ui_scene.instantiate()
 	summon_ui.visible = false  # Start hidden
 	
-	# Connect signals from the UI
-	summon_ui.shadows_summoned.connect(_on_shadows_summoned)
-	summon_ui.summon_cancelled.connect(_on_summon_cancelled)
+	# Connect signals from the UI - IMPORTANT
+	summon_ui.connect("shadows_summoned", Callable(self, "_on_shadows_summoned"))
+	summon_ui.connect("summon_cancelled", Callable(self, "_on_summon_cancelled"))
 	
 	# Add to a CanvasLayer to ensure it appears on top
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.layer = 10  # High layer number to be on top
+	canvas_layer.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	add_child(canvas_layer)
 	canvas_layer.add_child(summon_ui)
 
@@ -206,10 +214,23 @@ func use_ultimate():
 		print("Using Command ability")
 		current_state = State.USING_ULTIMATE
 		
+		# Filter out already summoned shadows
+		# Updated shadow search
+		var available_for_summon = []
+		for shadow in available_shadows:
+			var already_summoned = false
+			for summoned in summoned_shadows:
+				if summoned.is_equal(shadow):
+					already_summoned = true
+					break
+	
+			if not already_summoned:
+				available_for_summon.append(shadow)
+		
 		# Check if there are any shadows available
-		if available_shadows.size() > 0:
-			# Show the summon UI
-			summon_ui.show_summon_ui(self, available_shadows)
+		if available_for_summon.size() > 0:
+			# Show the summon UI with only unsummoned shadows
+			summon_ui.show_summon_ui(self, available_for_summon)
 		else:
 			print("No shadows available to summon!")
 			# Start cooldown anyway
@@ -253,27 +274,31 @@ func on_enemy_killed(enemy):
 	# Add enemy to available shadows list
 	var shadow_cost = 1
 	
-	# You could determine cost based on enemy type or properties
-	# Check if enemy has the property before accessing it
-	if enemy.has_method("get") or enemy.has_method("get_name"):
-		var enemy_name = ""
-		if enemy.has_method("get_name"):
-			enemy_name = enemy.get_name().to_lower()
-		else:
-			# Try to get the enemy name from the node name
-			enemy_name = enemy.name.to_lower()
-		
-		# Now check the name
-		if "medium" in enemy_name or (enemy.has_variable("max_health") and enemy.max_health > 100):
-			shadow_cost = 3
-		elif "large" in enemy_name or "boss" in enemy_name:
-			shadow_cost = 5
+	# Try to get enemy name safely - using enemy.name is always safe as it's a Node property
+	var enemy_name = enemy.name
+	
+	# Determine cost based on enemy name or properties
+	if "medium" in enemy_name.to_lower():
+		shadow_cost = 3
+	elif "large" in enemy_name.to_lower() or "boss" in enemy_name.to_lower():
+		shadow_cost = 5
+	
+	# Get health and damage safely
+	var enemy_health = 30  # Default value
+	var enemy_damage = 5   # Default value
+	
+	# Try to access properties safely using get() which won't error
+	if enemy.get("max_health") != null:
+		enemy_health = enemy.max_health
+	
+	if enemy.get("damage") != null:
+		enemy_damage = enemy.damage
 	
 	# Create shadow data entry
 	var shadow = ShadowData.new(
-		enemy.name,  # Use node name instead of enemy_type
-		enemy.max_health if enemy.has_variable("max_health") else 30,
-		enemy.damage if enemy.has_variable("damage") else 5,
+		enemy_name,         # Use node name
+		enemy_health,       # Health from enemy or default
+		enemy_damage,       # Damage from enemy or default
 		shadow_cost
 	)
 	
@@ -284,7 +309,7 @@ func on_enemy_killed(enemy):
 	if available_shadows.size() > max_available_shadows:
 		available_shadows.remove_at(0)  # Remove oldest
 	
-	print("Added " + enemy.name + " to available shadows (Cost: " + str(shadow_cost) + " SP)")
+	print("Added " + enemy_name + " to available shadows (Cost: " + str(shadow_cost) + " SP)")
 
 func _on_dagger_hit_area_body_entered(body):
 	if body.is_in_group("enemies") and is_attacking:
@@ -295,26 +320,38 @@ func _on_dagger_hit_area_body_entered(body):
 
 
 func _on_shadows_summoned(selected_shadows):
-	print("Summoning " + str(selected_shadows.size()) + " shadows")
+	print("Shadows summoned signal received with " + str(selected_shadows.size()) + " shadows")
 	
-	# Apply cooldown only after confirmation
+	if selected_shadows.size() == 0:
+		print("No shadows selected")
+		current_state = State.IDLE
+		return
+	
+	# Apply cooldown
 	ultimate_timer = ultimate_cooldown
 	
 	# Calculate total SP cost
 	var total_sp_cost = 0
 	for shadow in selected_shadows:
 		total_sp_cost += shadow.sp_cost
+		print("Adding shadow cost: " + str(shadow.sp_cost) + ", total: " + str(total_sp_cost))
 	
 	# Deduct SP
+	print("Before SP deduction: " + str(sp_points))
 	sp_points -= total_sp_cost
 	if sp_points < 0:
 		sp_points = 0
+	print("After SP deduction: " + str(sp_points))
 	
 	# Update UI
-	update_sp_display()
+	emit_signal("sp_changed", sp_points, sp_max)
 	
 	# Summon the selected shadows
 	for shadow in selected_shadows:
+		# Mark this shadow as summoned by adding to summoned list
+		summoned_shadows.append(shadow)
+		
+		# Spawn the shadow entity
 		spawn_shadow(shadow)
 	
 	# Return to normal state
@@ -332,28 +369,74 @@ func _on_summon_cancelled():
 
 # Spawn a shadow entity from the data
 func spawn_shadow(shadow_data):
-	# For now, just create a simple ColorRect as a placeholder
+	print("Spawning shadow: " + shadow_data.enemy_type)
+	
+	# Create a new shadow node with our script
 	var shadow = Node2D.new()
-	shadow.name = "Shadow_" + shadow_data.enemy_type
+	shadow.set_script(load("res://scripts/characters/shadow.gd"))
+	
+	# Set shadow properties from the data
+	shadow.enemy_type = shadow_data.enemy_type
+	shadow.health = shadow_data.max_health
+	shadow.max_health = shadow_data.max_health
+	shadow.damage = shadow_data.damage
+	shadow.owner_ref = self  # Set owner to Kairis
+	
+	# Assign formation position based on current number of shadows
+	shadow.formation_index = shadow_list.size()
 	
 	# Create visual representation
 	var visual = ColorRect.new()
-	visual.color = Color(0.2, 0.2, 0.2, 0.8)  # Dark gray, semi-transparent
-	visual.size = Vector2(30, 30)
+	visual.color = Color(0.2, 0.2, 0.2, 0.8)  # Dark gray
 	visual.position = Vector2(-15, -15)  # Center it
+	visual.size = Vector2(30, 30)
 	shadow.add_child(visual)
 	
-	# Position shadow near the player
+	# Calculate initial position based on formation
+	var row = shadow.formation_index / shadow.formation_row_size
+	var col = shadow.formation_index % shadow.formation_row_size
 	var offset = Vector2(
-		randf_range(-50, 50),
-		randf_range(-50, 50)
+		(col - shadow.formation_row_size/2.0) * shadow.formation_spacing,
+		(row + 1) * shadow.formation_spacing
 	)
-	shadow.position = global_position + offset
+	
+	# Adjust based on facing direction
+	offset = offset.rotated(get_facing_direction().angle())
+	
+	# Set initial position
+	shadow.global_position = global_position + offset
+	shadow.desired_position = shadow.global_position
 	
 	# Add to scene
 	get_parent().add_child(shadow)
 	
-	# Add to active shadows list
+	# Add to shadow list
 	shadow_list.append(shadow)
 	
-	print("Spawned shadow: " + shadow_data.enemy_type)
+	print("Shadow spawned at position: " + str(shadow.global_position))
+
+func remove_shadow(shadow):
+	if shadow_list.has(shadow):
+		# Get index of the shadow
+		var idx = shadow_list.find(shadow)
+		
+		# Remove from list
+		shadow_list.erase(shadow)
+		
+		# Update formation indices for all shadows after this one
+		for i in range(idx, shadow_list.size()):
+			shadow_list[i].formation_index = i
+		
+		print("Shadow removed from list, remaining: " + str(shadow_list.size()))
+
+func get_facing_direction():
+	# Return the direction the player is currently facing/moving
+	if input_direction != Vector2.ZERO:
+		return input_direction.normalized()
+	else:
+		# Default facing right if not moving
+		return Vector2.RIGHT
+
+func reset_summoned_shadows():
+	summoned_shadows.clear()
+	print("Reset summoned shadows list for new level")

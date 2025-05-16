@@ -155,26 +155,20 @@ func perform_attack():
 func take_damage(amount, source=null):
 	health -= amount
 	
-	# Show damage popup
-	DamageManager.show_damage(
-		amount, 
-		global_position,
-		DamageManager.NORMAL if source else DamageManager.TAKEN
-	)
+	# Show damage visual if you have the DamageManager
+	if get_node_or_null("/root/DamageManager") != null:
+		DamageManager.show_damage(amount, global_position, DamageManager.NORMAL)
 	
 	print(enemy_name + " took " + str(amount) + " damage! Health: " + str(health) + "/" + str(max_health))
 	
 	# Check if dead
 	if health <= 0:
 		die(source)
-	
-	# REMOVE THESE LINES:
-	# else:
-	#    # Briefly stun
-	#    stun_timer = 0.3
-	#    current_state = State.STUNNED
-	
-	# The enemy will now continue in its current state even after being hit
+	else:
+		# Optional visual feedback
+		modulate = Color(1, 0.5, 0.5)  # Flash red
+		await get_tree().create_timer(0.1).timeout
+		modulate = Color(1, 1, 1)  # Back to normal
 
 func die(source=null):
 	# Change state to dead

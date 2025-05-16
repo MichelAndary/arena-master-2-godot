@@ -33,8 +33,19 @@ func _ready():
 	else:
 		print("ERROR: cancel_button is null")
 	
+	 # Set process mode to allow processing when paused
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	
+	# Connect button signals
+	summon_button.pressed.connect(_on_summon_pressed)
+	cancel_button.pressed.connect(_on_cancel_pressed)
+	
 	# Initially hidden
 	visible = false
+	
+	# Initially hidden
+	visible = false
+	
 
 # Function to show the UI with available shadows
 func show_summon_ui(p_player, shadows):
@@ -63,27 +74,80 @@ func show_summon_ui(p_player, shadows):
 	
 	# Show the UI
 	visible = true
-
+	
+	# Pause the game - ADD THIS
+	get_tree().paused = true
+	
 func _on_shadow_button_pressed(index):
 	print("Shadow button " + str(index) + " pressed")
 	
-	# For this simple test, just print something
+	# Make sure we have valid index
+	if index < 0 or index >= available_shadows.size():
+		print("Invalid shadow index: " + str(index))
+		return
+	
+	# Get the shadow and button
 	var shadow = available_shadows[index]
 	var button = shadows_grid.get_child(index)
 	
+	# Toggle selection
 	if button.button_pressed:
-		print("Selected shadow " + str(index))
-		button.modulate = Color(0.7, 1.0, 0.7)  # Green tint
+		print("Selected shadow: " + shadow.enemy_type)
+		# Add to selected shadows if not already there
+		if not selected_shadows.has(shadow):
+			# Check if enough SP
+			var total_cost = get_total_selected_cost() + shadow.sp_cost
+			if player and player.get("sp_points") != null and total_cost <= player.sp_points:
+				selected_shadows.append(shadow)
+				button.modulate = Color(0.7, 1.0, 0.7)  # Green tint
+				print("Added to selected shadows, total: " + str(selected_shadows.size()))
+			else:
+				# Not enough SP
+				button.button_pressed = false
+				print("Not enough SP to select this shadow")
+				# Flash red
+				var tween = create_tween()
+				tween.tween_property(button, "modulate", Color(1.0, 0.5, 0.5), 0.1)
+				tween.tween_property(button, "modulate", Color(1.0, 1.0, 1.0), 0.1)
 	else:
-		print("Deselected shadow " + str(index))
+		print("Deselected shadow: " + shadow.enemy_type)
+		# Remove from selected shadows
+		selected_shadows.erase(shadow)
 		button.modulate = Color(1.0, 1.0, 1.0)  # Normal color
+		print("Removed from selected shadows, total: " + str(selected_shadows.size()))
 
 func _on_summon_pressed():
-	print("Summon button pressed")
-	emit_signal("shadows_summoned", [])  # For now, just an empty array
-	visible = false  # Hide UI
+	print("Summon button pressed with " + str(selected_shadows.size()) + " shadows selected")
+	
+	# Emit signal with the selected shadows
+	emit_signal("shadows_summoned", selected_shadows)
+	
+	# Hide UI
+	visible = false
+	
+	# Unpause the game - ADD THIS
+	get_tree().paused = false
+	
+	# Clear selections for next time
+	selected_shadows.clear()
 
 func _on_cancel_pressed():
 	print("Cancel button pressed")
+	
+	# Emit signal
 	emit_signal("summon_cancelled")
-	visible = false  # Hide UI
+	
+	# Hide UI
+	visible = false
+	
+	# Unpause the game - ADD THIS
+	get_tree().paused = false
+	
+	# Clear selections for next time
+	selected_shadows.clear()
+	
+func get_total_selected_cost():
+	var total = 0
+	for shadow in selected_shadows:
+		total += shadow.sp_cost
+	return total
