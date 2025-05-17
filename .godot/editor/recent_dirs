@@ -1,3 +1,6 @@
+res://scripts/enemies
+res://scripts/factories
+res://resources/enemies
 res://scenes/ui
 res://assets/ui
 res://assets/ui/in_game
@@ -7,5 +10,4 @@ res://scripts/pickups
 res://scripts
 res://scripts/levels
 res://scenes/enemies
-res://scripts/enemies
 res://scripts/characters

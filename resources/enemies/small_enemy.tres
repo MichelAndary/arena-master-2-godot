@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://djyoqwbf6boqg"]
+
+[ext_resource type="Script" uid="uid://blehw1s13kbqg" path="res://resources/enemy_data.gd" id="1_nxlpl"]
+
+[resource]
+script = ExtResource("1_nxlpl")
+name = "Small Enemy"
+enemy_type = "small"
+element = "neutral"
+max_health = 30
+damage = 5
+defense = 0
+movement_speed = 100.0
+attack_range = 50.0
+detection_range = 300.0
+color = Color(1, 0, 0, 1)
+scale_modifier = Vector2(2, 1)
+scene_path = "res://scenes/enemies/basic_enemy.tscn"
+sp_cost = 2
+metadata/_custom_type_script = "uid://blehw1s13kbqg"

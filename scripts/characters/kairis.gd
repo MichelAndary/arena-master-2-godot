@@ -3,12 +3,14 @@ class_name Kairis
 
 # Create a Shadow data class to store enemy info
 class ShadowData:
+	var enemy_id = ""  # Reference to the enemy data resource
 	var enemy_type = ""
 	var max_health = 0
 	var damage = 0
 	var sp_cost = 1
 	
-	func _init(type, health, dmg, cost=1):
+	func _init(id, type, health, dmg, cost=1):
+		enemy_id = id
 		enemy_type = type
 		max_health = health
 		damage = dmg
@@ -275,13 +277,21 @@ func on_enemy_killed(enemy):
 	var shadow_cost = 1
 	
 	# Try to get enemy name safely - using enemy.name is always safe as it's a Node property
-	var enemy_name = enemy.name
+	var enemy_name = ""
+	if enemy.get("enemy_name") != null:
+		enemy_name = enemy.enemy_name
+	else:
+		enemy_name = enemy.name
+		
+	var enemy_id = "small_enemy"  # Default to small enemy
 	
 	# Determine cost based on enemy name or properties
 	if "medium" in enemy_name.to_lower():
 		shadow_cost = 3
+		enemy_id = "medium_enemy"
 	elif "large" in enemy_name.to_lower() or "boss" in enemy_name.to_lower():
 		shadow_cost = 5
+		enemy_id = "large_enemy"
 	
 	# Get health and damage safely
 	var enemy_health = 30  # Default value
@@ -296,10 +306,11 @@ func on_enemy_killed(enemy):
 	
 	# Create shadow data entry
 	var shadow = ShadowData.new(
-		enemy_name,         # Use node name
-		enemy_health,       # Health from enemy or default
-		enemy_damage,       # Damage from enemy or default
-		shadow_cost
+		enemy_id,         # Enemy resource ID
+		enemy_name,       # Enemy type name
+		enemy_health,     # Health from enemy or default
+		enemy_damage,     # Damage from enemy or default
+		shadow_cost       # SP cost
 	)
 	
 	# Add to available shadows
@@ -371,53 +382,27 @@ func _on_summon_cancelled():
 func spawn_shadow(shadow_data):
 	print("Spawning shadow: " + shadow_data.enemy_type)
 	
-	# Create a new shadow node with our script
-	var shadow = Node2D.new()
-	shadow.set_script(load("res://scripts/characters/shadow.gd"))
+	# Create shadow using the factory
+	var shadow = EnemyFactory.create_shadow(shadow_data.enemy_id, self)
 	
-	# Set shadow properties from the data
-	shadow.enemy_type = shadow_data.enemy_type
-	shadow.health = shadow_data.max_health
-	shadow.max_health = shadow_data.max_health
-	shadow.damage = shadow_data.damage
-	shadow.owner_ref = self  # Set owner to Kairis
+	if shadow == null:
+		print("ERROR: Failed to create shadow of type: " + shadow_data.enemy_id)
+		return
 	
-	# Get existing shadows to determine spacing
-	var existing_shadows = get_tree().get_nodes_in_group("shadows")
-	
-	# Assign formation position based on current number of shadows
+	# Get existing shadows to determine formation position
 	shadow.formation_index = shadow_list.size()
 	
-	# Increase spacing for larger armies to prevent overlap
-	shadow.formation_spacing = 40 + min(existing_shadows.size() * 2, 20)  # Up to +20 extra spacing
+	# Position shadow near player with formation position
+	var row = shadow.formation_index / 3
+	var col = shadow.formation_index % 3
 	
-	# For larger armies, increase formation row size
-	if existing_shadows.size() > 5:
-		shadow.formation_row_size = 4
-	if existing_shadows.size() > 10:
-		shadow.formation_row_size = 5
-	
-	# Create visual representation
-	var visual = ColorRect.new()
-	visual.color = Color(0.2, 0.2, 0.2, 0.8)  # Dark gray
-	visual.position = Vector2(-15, -15)  # Center it
-	visual.size = Vector2(30, 30)
-	shadow.add_child(visual)
-	
-	# Calculate initial position based on formation
-	var row = shadow.formation_index / shadow.formation_row_size
-	var col = shadow.formation_index % shadow.formation_row_size
 	var offset = Vector2(
-		(col - shadow.formation_row_size/2.0) * shadow.formation_spacing,
-		(row + 1) * shadow.formation_spacing
+		(col - 1) * 40,  # 3 columns centered around player
+		(row + 1) * 40   # Rows starting below player
 	)
-	
-	# Adjust based on facing direction
-	offset = offset.rotated(get_facing_direction().angle())
 	
 	# Set initial position
 	shadow.global_position = global_position + offset
-	shadow.desired_position = shadow.global_position
 	
 	# Add to scene
 	get_parent().add_child(shadow)

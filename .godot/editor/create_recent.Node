@@ -1,3 +1,6 @@
+Sprite2D
+CollisionShape2D
+CharacterBody2D
 Button
 Control
 CanvasLayer
@@ -8,7 +11,4 @@ Label
 Panel
 ColorRect
 TextureRect
-Sprite2D
-CollisionShape2D
 Area2D
-AnimationPlayer

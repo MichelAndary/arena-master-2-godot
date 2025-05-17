@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/autoload/game_manager.gd"
 DamageManager="*res://scripts/autoload/damage_manager.gd"
+EnemyFactory="*res://scripts/factories/enemy_factory.gd"
 
 [input]
 
