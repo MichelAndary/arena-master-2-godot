@@ -16,6 +16,9 @@ func _ready():
 	# Set the total number of enemies for this stage
 	GameManager.enemies_total = max_total_enemies
 	
+	# Set scaling based on current stage
+	update_stage_difficulty()
+	
 	# Reset enemies_killed to ensure it starts from 0 for this stage
 	GameManager.enemies_killed = 0
 	
@@ -48,6 +51,53 @@ func spawn_enemy():
 	# Create enemy instance
 	var enemy = enemy_scene.instantiate()
 	
+	# Determine enemy type based on stage progression
+	var enemy_type = determine_enemy_type()
+	
+	# Set visual appearance based on type
+	if enemy.has_node("Sprite"):
+		var enemy_sprite = enemy.get_node("Sprite")
+		# Adjust size and color based on type
+		match enemy_type:
+			"small":
+				enemy_sprite.scale = Vector2(1.0, 1.0)
+				enemy_sprite.modulate = Color(1.0, 0.2, 0.2)  # Red
+			"medium":
+				enemy_sprite.scale = Vector2(1.3, 1.3)
+				enemy_sprite.modulate = Color(1.0, 0.6, 0.2)  # Orange
+			"large":
+				enemy_sprite.scale = Vector2(1.6, 1.6)
+				enemy_sprite.modulate = Color(0.7, 0.2, 0.7)  # Purple
+			"boss":
+				enemy_sprite.scale = Vector2(2.0, 2.0)
+				enemy_sprite.modulate = Color(0.9, 0.9, 0.2)  # Yellow
+	
+	# Apply scaled stats
+	enemy.max_health = GameManager.get_scaled_enemy_health(enemy_type)
+	enemy.health = enemy.max_health
+	enemy.damage = GameManager.get_scaled_enemy_damage(enemy_type)
+	enemy.movement_speed = GameManager.get_scaled_enemy_speed(enemy_type)
+	
+	# Update enemy name to reflect type
+	enemy.enemy_name = enemy_type.capitalize() + " Enemy"
+	
+	# Set behavior based on type
+	match enemy_type:
+		"small":
+			# Fast but weak
+			enemy.movement_speed *= 1.2
+		"medium":
+			# Balanced
+			pass
+		"large":
+			# More health, slower
+			enemy.max_health *= 1.1
+			enemy.health = enemy.max_health
+		"boss":
+			# Special behavior for bosses
+			enemy.attack_range *= 1.5  # Longer attack range
+			# You could also set custom properties for special attacks
+	
 	# Set random position on the edge of the screen
 	var viewport_size = get_viewport_rect().size
 	var spawn_position = Vector2.ZERO
@@ -73,6 +123,8 @@ func spawn_enemy():
 	# Update counters
 	enemies_spawned += 1
 	active_enemies += 1
+	
+	
 
 func _on_enemy_killed():
 	active_enemies -= 1
@@ -171,3 +223,33 @@ func collect_remaining_essence():
 	print("Total soul essence to be collected: " + str(total_collected))
 	print("Current GameManager.soul_essence before collection: " + str(GameManager.soul_essence))
 	print("===========")
+
+func update_stage_difficulty():
+	# Update spawning parameters based on current stage
+	spawn_interval = GameManager.get_scaled_spawn_interval()
+	max_total_enemies = GameManager.get_enemies_per_stage()
+	
+	# Update GameManager's enemies_total
+	GameManager.enemies_total = max_total_enemies
+	
+	print("Stage " + str(GameManager.current_stage) + " difficulty: " +
+		  "Spawn interval: " + str(spawn_interval) + ", " +
+		  "Total enemies: " + str(max_total_enemies))
+
+# New function to determine enemy type based on stage
+func determine_enemy_type():
+	# Simple implementation - increase chance of stronger enemies in later stages
+	var chance = randf()
+	
+	# Stage-based probabilities
+	var medium_chance = min(0.1 + (GameManager.current_stage - 1) * 0.05, 0.4)
+	var large_chance = min(0.05 + (GameManager.current_stage - 1) * 0.03, 0.2)
+	
+	if GameManager.current_stage >= 10 and chance < 0.05:
+		return "boss"  # Rare boss chance in later stages
+	elif chance < large_chance:
+		return "large"
+	elif chance < large_chance + medium_chance:
+		return "medium" 
+	else:
+		return "small"

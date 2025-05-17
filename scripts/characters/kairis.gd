@@ -382,8 +382,20 @@ func spawn_shadow(shadow_data):
 	shadow.damage = shadow_data.damage
 	shadow.owner_ref = self  # Set owner to Kairis
 	
+	# Get existing shadows to determine spacing
+	var existing_shadows = get_tree().get_nodes_in_group("shadows")
+	
 	# Assign formation position based on current number of shadows
 	shadow.formation_index = shadow_list.size()
+	
+	# Increase spacing for larger armies to prevent overlap
+	shadow.formation_spacing = 40 + min(existing_shadows.size() * 2, 20)  # Up to +20 extra spacing
+	
+	# For larger armies, increase formation row size
+	if existing_shadows.size() > 5:
+		shadow.formation_row_size = 4
+	if existing_shadows.size() > 10:
+		shadow.formation_row_size = 5
 	
 	# Create visual representation
 	var visual = ColorRect.new()

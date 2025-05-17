@@ -23,6 +23,11 @@ var formation_spacing = 40  # Distance between shadows
 var formation_row_size = 3  # Max shadows per row
 var desired_position = Vector2.ZERO  # Where this shadow should be in formation
 
+#collision-related variables
+var collision_radius = 15  # Radius for collision detection
+var avoid_force = 1.5      # Strength of avoidance behavior
+var other_shadows = []     # Reference to other shadows
+
 func _ready():
 	# Add to shadows group
 	add_to_group("shadows")
@@ -40,6 +45,17 @@ func _ready():
 	scale = Vector2(0.1, 0.1)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1, 1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	
+	# Get all existing shadows to avoid
+	call_deferred("update_shadow_references")
+	
+func update_shadow_references():
+	# Wait a frame to ensure all shadows are in the scene
+	await get_tree().process_frame
+	
+	# Update references to other shadows
+	other_shadows = get_tree().get_nodes_in_group("shadows")
+	other_shadows.erase(self)  # Remove self from list
 
 func setup_collision():
 	# Create area for detecting enemies
@@ -71,6 +87,10 @@ func _process(delta):
 			process_following_state(delta)
 		State.ATTACKING:
 			process_attacking_state(delta)
+	
+	# Update shadow references occasionally
+	if Engine.get_frames_drawn() % 60 == 0:  # Every ~1 second
+		update_shadow_references()
 
 func process_idle_state(delta):
 	# If we have a target, start attacking
@@ -90,22 +110,30 @@ func process_following_state(delta):
 		current_state = State.ATTACKING
 		return
 	
-	# If we have an owner, follow in formation
+		# If we have an owner, follow in formation
 	if owner_ref and is_instance_valid(owner_ref):
 		# Calculate desired position in formation
 		update_formation_position()
 		
+		# Calculate direction to move
+		var direction = (desired_position - global_position).normalized()
+		
+		# Apply separation force to avoid other shadows
+		var separation = calculate_separation()
+		
+		# Combine movement and separation
+		var movement = (direction + separation * avoid_force).normalized()
+		
 		# Calculate distance to desired position
 		var distance = global_position.distance_to(desired_position)
 		
-		if distance <= 10:
-			# We're close enough to our position, go idle
+		if distance <= 10 and separation.length() < 0.1:
+			# We're close enough to our position and not being pushed, go idle
 			current_state = State.IDLE
 			return
-			
-		# Move toward formation position
-		var direction = (desired_position - global_position).normalized()
-		position += direction * move_speed * delta
+		
+		# Move toward formation position with avoidance
+		position += movement * move_speed * delta
 	else:
 		# No owner, just stay idle
 		current_state = State.IDLE
@@ -118,16 +146,28 @@ func process_attacking_state(delta):
 			current_state = State.FOLLOWING
 			return
 	
+	# Calculate direction to target
+	var direction = Vector2.ZERO
+	
 	# Move toward target if not in range
 	var distance = global_position.distance_to(target.global_position)
 	if distance > attack_range:
-		var direction = (target.global_position - global_position).normalized()
-		position += direction * move_speed * delta
-	else:
-		# In range, attack if cooldown is ready
-		if attack_timer <= 0:
-			attack_target()
-			attack_timer = attack_cooldown
+		direction = (target.global_position - global_position).normalized()
+	
+	# Apply separation force to avoid other shadows
+	var separation = calculate_separation()
+	
+	# Combine movement and separation
+	var movement = (direction + separation * avoid_force).normalized()
+	
+	# Only apply movement if we're not at attack range or if being pushed by other shadows
+	if distance > attack_range || separation.length() > 0.1:
+		position += movement * move_speed * delta
+	
+	# In range, attack if cooldown is ready
+	if distance <= attack_range && attack_timer <= 0:
+		attack_target()
+		attack_timer = attack_cooldown
 
 func attack_target():
 	if target and is_instance_valid(target):
@@ -215,3 +255,30 @@ func update_formation_position():
 		
 		# Set desired position
 		desired_position = owner_ref.global_position + offset
+
+# Function to calculate separation force
+func calculate_separation():
+	var separation_force = Vector2.ZERO
+	var too_close_count = 0
+	
+	# Check distance to other shadows
+	for shadow in other_shadows:
+		if is_instance_valid(shadow):
+			var distance = global_position.distance_to(shadow.global_position)
+			var min_distance = collision_radius + shadow.collision_radius
+			
+			if distance < min_distance:
+				# Too close, calculate repulsion force
+				var pushback = global_position - shadow.global_position
+				if pushback.length() > 0:  # Prevent zero division
+					pushback = pushback.normalized()
+					# Force is stronger when closer
+					var force = (min_distance - distance) / min_distance
+					separation_force += pushback * force
+					too_close_count += 1
+	
+	# Average the force if we found any
+	if too_close_count > 0:
+		separation_force /= too_close_count
+	
+	return separation_force
