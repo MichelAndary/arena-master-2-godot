@@ -80,32 +80,53 @@ func configure_enemy(enemy: Node, data: EnemyData):
 	
 	return enemy
 
-func create_shadow(enemy_id: String, owner_node):
+func create_shadow(enemy_id, owner_node):
+	print("Creating shadow from enemy ID: " + enemy_id)
+	
 	if not enemy_data_resources.has(enemy_id):
 		print("ERROR: Enemy data not found for ID: " + enemy_id)
 		return null
 	
 	var data = enemy_data_resources[enemy_id]
+	print("Found enemy data: " + data.name)
 	
-	# Load the scene if not already preloaded
+	# Load the enemy scene
 	var scene
 	if enemy_scenes.has(enemy_id):
 		scene = enemy_scenes[enemy_id]
 	else:
-		if data.scene_path != "":
-			scene = load(data.scene_path)
-			enemy_scenes[enemy_id] = scene
-		else:
+		if data.scene_path == "":
 			print("ERROR: No scene path specified for enemy: " + enemy_id)
 			return null
+			
+		print("Loading scene from path: " + data.scene_path)
+		scene = load(data.scene_path)
+		enemy_scenes[enemy_id] = scene
 	
-	# Instance the shadow
-	var shadow_instance = scene.instantiate()
+	# Instance the scene
+	var shadow = scene.instantiate()
+	print("Instantiated shadow from scene")
 	
-	# Configure the shadow with modified data
-	configure_shadow(shadow_instance, data, owner_node)
+	# Configure basic enemy properties
+	configure_enemy(shadow, data)
 	
-	return shadow_instance
+	# Apply shadow-specific modifications
+	print("Converting to shadow...")
+	shadow.convert_to_shadow(owner_node)
+	
+		# After converting to shadow, explicitly check and fix groups
+	print("Shadow groups before: " + str(shadow.get_groups()))
+	if shadow.is_in_group("enemies"):
+		shadow.remove_from_group("enemies")
+		print("Removed from enemies group")
+	
+	if not shadow.is_in_group("shadows"):
+		shadow.add_to_group("shadows")
+		print("Added to shadows group")
+	
+	print("Shadow groups after: " + str(shadow.get_groups()))
+	
+	return shadow
 
 func configure_shadow(shadow: Node, data: EnemyData, owner_node):
 	# First, configure like a normal enemy

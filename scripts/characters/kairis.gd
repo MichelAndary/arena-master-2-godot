@@ -273,25 +273,32 @@ func on_enemy_killed(enemy):
 		print("Gained 1 SP from defeated enemy. Total: " + str(sp_points))
 		update_sp_display()
 	
+	print("Processing enemy for shadow data: " + enemy.name)
+	
 	# Add enemy to available shadows list
 	var shadow_cost = 1
 	
-	# Try to get enemy name safely - using enemy.name is always safe as it's a Node property
+	# Get enemy name
 	var enemy_name = ""
 	if enemy.get("enemy_name") != null:
 		enemy_name = enemy.enemy_name
+		print("Using enemy_name property: " + enemy_name)
 	else:
 		enemy_name = enemy.name
+		print("Using node name: " + enemy_name)
 		
 	var enemy_id = "small_enemy"  # Default to small enemy
+	print("Starting with default enemy_id: " + enemy_id)
 	
 	# Determine cost based on enemy name or properties
 	if "medium" in enemy_name.to_lower():
 		shadow_cost = 3
 		enemy_id = "medium_enemy"
+		print("Classified as medium enemy: " + enemy_id)
 	elif "large" in enemy_name.to_lower() or "boss" in enemy_name.to_lower():
 		shadow_cost = 5
 		enemy_id = "large_enemy"
+		print("Classified as large enemy: " + enemy_id)
 	
 	# Get health and damage safely
 	var enemy_health = 30  # Default value
@@ -300,9 +307,11 @@ func on_enemy_killed(enemy):
 	# Try to access properties safely using get() which won't error
 	if enemy.get("max_health") != null:
 		enemy_health = enemy.max_health
+		print("Got max_health: " + str(enemy_health))
 	
 	if enemy.get("damage") != null:
 		enemy_damage = enemy.damage
+		print("Got damage: " + str(enemy_damage))
 	
 	# Create shadow data entry
 	var shadow = ShadowData.new(
@@ -313,6 +322,10 @@ func on_enemy_killed(enemy):
 		shadow_cost       # SP cost
 	)
 	
+	print("Created ShadowData: ID=" + shadow.enemy_id + ", Type=" + shadow.enemy_type +
+		  ", Health=" + str(shadow.max_health) + ", Damage=" + str(shadow.damage) +
+		  ", SP Cost=" + str(shadow.sp_cost))
+	
 	# Add to available shadows
 	available_shadows.append(shadow)
 	
@@ -320,7 +333,8 @@ func on_enemy_killed(enemy):
 	if available_shadows.size() > max_available_shadows:
 		available_shadows.remove_at(0)  # Remove oldest
 	
-	print("Added " + enemy_name + " to available shadows (Cost: " + str(shadow_cost) + " SP)")
+	print("Added " + enemy_name + " to available shadows (Cost: " + str(shadow_cost) + 
+		  " SP). Total available: " + str(available_shadows.size()))
 
 func _on_dagger_hit_area_body_entered(body):
 	if body.is_in_group("enemies") and is_attacking:
@@ -386,31 +400,31 @@ func spawn_shadow(shadow_data):
 	var shadow = EnemyFactory.create_shadow(shadow_data.enemy_id, self)
 	
 	if shadow == null:
-		print("ERROR: Failed to create shadow of type: " + shadow_data.enemy_id)
+		print("ERROR: Failed to create shadow!")
 		return
 	
-	# Get existing shadows to determine formation position
+	# Set formation index
 	shadow.formation_index = shadow_list.size()
 	
-	# Position shadow near player with formation position
+	# Position shadow near player
 	var row = shadow.formation_index / 3
 	var col = shadow.formation_index % 3
 	
 	var offset = Vector2(
-		(col - 1) * 40,  # 3 columns centered around player
-		(row + 1) * 40   # Rows starting below player
+		(col - 1) * 40,
+		(row + 1) * 40
 	)
 	
-	# Set initial position
 	shadow.global_position = global_position + offset
+	shadow.current_state = shadow.State.IDLE  # Force idle state initially
 	
-	# Add to scene
-	get_parent().add_child(shadow)
+	# Add to scene - use different parent to avoid issues
+	get_tree().current_scene.add_child(shadow)
 	
 	# Add to shadow list
 	shadow_list.append(shadow)
 	
-	print("Shadow spawned at position: " + str(shadow.global_position))
+	print("Shadow spawned with groups: " + str(shadow.get_groups()))
 
 func remove_shadow(shadow):
 	if shadow_list.has(shadow):
