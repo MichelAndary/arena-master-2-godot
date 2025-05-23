@@ -120,12 +120,28 @@ func shadow_behavior(delta):
 
 # New function for enemy behavior
 func enemy_behavior(delta):
-	# Find player
+	# Find player and shadows to target
 	var player = get_tree().get_first_node_in_group("player")
+	var shadows = get_tree().get_nodes_in_group("shadows")
 	
-	# Check if player is in detection range
-	if player and global_position.distance_to(player.global_position) < detection_range:
-		target = player
+	var potential_targets = []
+	if player:
+		potential_targets.append(player)
+	potential_targets.append_array(shadows)
+	
+	# Find closest target
+	var closest_target = null
+	var closest_distance = 99999
+	
+	for target_entity in potential_targets:
+		var distance = global_position.distance_to(target_entity.global_position)
+		if distance < closest_distance and distance < detection_range:
+			closest_target = target_entity
+			closest_distance = distance
+	
+	# Set target if found
+	if closest_target:
+		target = closest_target
 		current_state = State.CHASING
 	else:
 		velocity = Vector2.ZERO
@@ -156,14 +172,38 @@ func process_chase_state(delta):
 		current_state = State.IDLE
 		return
 	
-	# Move toward target
+	# Move toward target with separation
 	var direction = (target.global_position - global_position).normalized()
+	
+	# Add separation to avoid sticking
+	var separation = Vector2.ZERO
+	var entities
+	if is_shadow:
+		entities = get_tree().get_nodes_in_group("shadows")
+	else:
+		entities = get_tree().get_nodes_in_group("enemies")
+	var sep_count = 0
+	
+	for entity in entities:
+		if entity != self:
+			var dist = global_position.distance_to(entity.global_position)
+			if dist < 30:  # Adjust separation distance
+				separation += global_position - entity.global_position
+				sep_count += 1
+	
+	if sep_count > 0:
+		separation = separation.normalized() * 0.5  # Lower value to reduce effect
+		direction = (direction + separation).normalized()
+	
 	velocity = direction * movement_speed
 	move_and_slide()
 	
 	# Check if close enough to attack
 	if global_position.distance_to(target.global_position) < attack_range:
 		current_state = State.ATTACKING
+	
+	
+
 
 func process_attack_state(delta):
 	# If target isn't valid or is too far, go back to chasing
@@ -239,7 +279,6 @@ func take_damage(amount, source=null):
 	if get_node_or_null("/root/DamageManager") != null:
 		DamageManager.show_damage(amount, global_position, DamageManager.NORMAL)
 	
-	print(enemy_name + " took " + str(amount) + " damage! Health: " + str(health) + "/" + str(max_health))
 	
 	# Check if dead
 	if health <= 0:
@@ -266,7 +305,13 @@ func die(source=null):
 	if source and source.has_method("on_enemy_killed"):
 		source.on_enemy_killed(self)
 	
-	print(enemy_name + " has been defeated!")
+	# Spawn soul essence (ADD THIS)
+	var soul_essence_scene = load("res://scenes/pickups/soul_essence.tscn")
+	if soul_essence_scene:
+		var soul = soul_essence_scene.instantiate()
+		soul.value = 1  # Basic value
+		soul.global_position = global_position
+		get_tree().current_scene.call_deferred("add_child", soul)
 	
 	# Visual feedback
 	modulate = Color(0.5, 0.5, 0.5, 0.5)  # Fade out
@@ -284,9 +329,15 @@ func convert_to_shadow(owner_node):
 	owner_ref = owner_node
 	enemy_name = "Shadow " + enemy_name
 	
-	# Groups
-	remove_from_group("enemies")
-	add_to_group("shadows")
+	# IMPORTANT: Make sure we're removed from enemies group
+	if is_in_group("enemies"):
+		remove_from_group("enemies")
+		print(enemy_name + " removed from 'enemies' group")
+	
+	# IMPORTANT: Make sure we're in shadows group
+	if not is_in_group("shadows"):
+		add_to_group("shadows")
+		print(enemy_name + " added to 'shadows' group")
 	
 	# Appearance
 	modulate = Color(0.2, 0.2, 0.2, 0.8)
@@ -295,5 +346,5 @@ func convert_to_shadow(owner_node):
 	current_state = State.IDLE
 	target = null
 	
-	# Print final confirmation with groups
+	# Debug print
 	print(enemy_name + " is now a shadow. Groups: " + str(get_groups()))

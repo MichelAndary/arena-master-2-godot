@@ -87,17 +87,16 @@ func _on_enemy_killed():
 		open_portal()
 
 func open_portal():
-	# In a full implementation, this would spawn a portal entity
-	# For now, just notify the game that the stage is completed
-	print("Portal opened! Stage complete.")
-	
-	# Collect remaining soul essence if that system is in place
-	if has_method("collect_remaining_essence"):
-		collect_remaining_essence()
-	
-	# Wait a bit and then complete stage
-	await get_tree().create_timer(3.0).timeout
-	GameManager.complete_stage()
+	var portal_scene = load("res://scenes/portals/portal.tscn")
+	if portal_scene:
+		var portal = portal_scene.instantiate()
+		portal.global_position = get_viewport_rect().size / 2
+		get_tree().current_scene.add_child(portal)
+		portal.activate()
+	else:
+		# Fallback if portal scene not found
+		await get_tree().create_timer(3.0).timeout
+		GameManager.complete_stage()
 
 # If you have the soul essence collection logic, keep it here
 func collect_remaining_essence():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv6gpsrt0d2ln"]
+[gd_scene load_steps=5 format=3 uid="uid://dw537cbrcsk0a"]
 
 [ext_resource type="Script" uid="uid://ppdfogakekve" path="res://scripts/enemies/base_enemy.gd" id="1_7jpia"]
 

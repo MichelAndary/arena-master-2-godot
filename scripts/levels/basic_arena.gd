@@ -23,11 +23,8 @@ func spawn_player():
 			
 		player.global_position = spawn_position
 		
-		
 		# Add player to scene
 		add_child(player)
-		
-		
 		
 		# Connect player to HUD
 		var hud = $GameUI/HUD
@@ -35,7 +32,20 @@ func spawn_player():
 			hud.connect_player_signals(player)
 		
 		print("Player spawned: " + GameManager.selected_character)
-	if GameManager.current_stage > 1 and GameManager.player_health > 0:
-		player.health = GameManager.player_health
-		# Make sure to update the health display
-		player.update_health_display()
+		
+		# Load saved stats if stage > 1
+		if GameManager.current_stage > 1:
+			# Restore health
+			if GameManager.player_health > 0:
+				player.health = GameManager.player_health
+				player.update_health_display()
+			
+			# Restore SP if player is Kairis
+			if player.has_method("get_sp_points") and GameManager.player_sp > 0:
+				player.sp_points = GameManager.player_sp
+				player.update_sp_display()
+		
+		if GameManager.current_stage > 1 and player is Kairis:
+			# Short delay before entrance animation
+			await get_tree().create_timer(0.5).timeout
+			player.perform_shadow_entrance()

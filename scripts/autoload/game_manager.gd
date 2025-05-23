@@ -12,6 +12,7 @@ var current_fragments = 0  # Persistent currency
 var soul_essence = 0  # In-run currency
 var saved_soul_essence = 0
 var player_health = 0
+var player_sp = 0
 
 # Run data
 var current_stage = 0
@@ -83,7 +84,15 @@ func start_new_game():
 
 func complete_stage():
 	current_stage += 1
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player_health = player.health
+		if player is Kairis:
+			player_sp = player.sp_points
 	emit_signal("stage_completed")
+	
+	# Save soul essence
+	saved_soul_essence = soul_essence
 	
 	# Reset game state for next stage
 	enemies_killed = 0

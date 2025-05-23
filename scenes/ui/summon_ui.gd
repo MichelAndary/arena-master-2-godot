@@ -24,27 +24,25 @@ func _ready():
 	
 	# Connect button signals - only if they exist
 	if summon_button:
-		summon_button.pressed.connect(_on_summon_pressed)
+		# Check if signal is already connected before connecting
+		if !summon_button.pressed.is_connected(_on_summon_pressed):
+			summon_button.pressed.connect(_on_summon_pressed)
 	else:
 		print("ERROR: summon_button is null")
 		
 	if cancel_button:
-		cancel_button.pressed.connect(_on_cancel_pressed)
+		# Check if signal is already connected before connecting
+		if !cancel_button.pressed.is_connected(_on_cancel_pressed):
+			cancel_button.pressed.connect(_on_cancel_pressed)
 	else:
 		print("ERROR: cancel_button is null")
 	
-	 # Set process mode to allow processing when paused
+	# Set process mode to allow processing when paused
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	
-	# Connect button signals
-	summon_button.pressed.connect(_on_summon_pressed)
-	cancel_button.pressed.connect(_on_cancel_pressed)
-	
 	# Initially hidden
 	visible = false
-	
-	# Initially hidden
-	visible = false
+
 	
 
 # Function to show the UI with available shadows

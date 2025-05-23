@@ -135,7 +135,17 @@ func configure_shadow(shadow: Node, data: EnemyData, owner_node):
 	# Then convert to shadow mode
 	if shadow.has_method("convert_to_shadow"):
 		shadow.convert_to_shadow(owner_node)
-	
+	# After converting to shadow, explicitly check and fix groups
+	print("Shadow groups before: " + str(shadow.get_groups()))
+	if shadow.is_in_group("enemies"):
+		shadow.remove_from_group("enemies")
+		print("Removed from enemies group")
+
+	if not shadow.is_in_group("shadows"):
+		shadow.add_to_group("shadows")
+		print("Added to shadows group")
+
+	print("Shadow groups after: " + str(shadow.get_groups()))
 	# Set stats with modifiers
 	shadow.max_health = int(data.max_health * data.shadow_health_modifier)
 	shadow.health = shadow.max_health

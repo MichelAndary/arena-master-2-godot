@@ -5,6 +5,7 @@ class_name Kairis
 class ShadowData:
 	var enemy_id = ""  # Reference to the enemy data resource
 	var enemy_type = ""
+	
 	var max_health = 0
 	var damage = 0
 	var sp_cost = 1
@@ -28,6 +29,7 @@ var sp_max = 20
 var intelligence = 10  # Affects shadow command chance
 var shadow_list = []  # List of active shadows
 var shadow_limit = 5  # Maximum number of shadows at once
+var recently_hit_enemies = []
 
 @onready var weapon_animator = $WeaponAnimator
 @onready var dagger_hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
@@ -337,11 +339,17 @@ func on_enemy_killed(enemy):
 		  " SP). Total available: " + str(available_shadows.size()))
 
 func _on_dagger_hit_area_body_entered(body):
-	if body.is_in_group("enemies") and is_attacking:
+	# Only deal damage if we're actually attacking and haven't hit this enemy yet
+	if body.is_in_group("enemies") and is_attacking and !recently_hit_enemies.has(body):
+		# Add to recently hit list
+		recently_hit_enemies.append(body)
+		
+		# Clear the list after a short delay
+		get_tree().create_timer(0.2).timeout.connect(func(): recently_hit_enemies.clear())
+		
 		# Deal damage to the enemy
 		if body.has_method("take_damage"):
 			body.take_damage(base_damage, self)
-			print("Dagger hit enemy: " + body.name)
 
 
 func _on_shadows_summoned(selected_shadows):
@@ -421,6 +429,14 @@ func spawn_shadow(shadow_data):
 	# Add to scene - use different parent to avoid issues
 	get_tree().current_scene.add_child(shadow)
 	
+	# Make sure shadow is not in enemies group after adding to scene
+	if shadow.is_in_group("enemies"):
+		shadow.remove_from_group("enemies")
+		print("Removed shadow from enemies group after scene addition")
+
+# Verify groups again
+	print("Shadow final groups: " + str(shadow.get_groups()))
+	
 	# Add to shadow list
 	shadow_list.append(shadow)
 	
@@ -451,3 +467,31 @@ func get_facing_direction():
 func reset_summoned_shadows():
 	summoned_shadows.clear()
 	print("Reset summoned shadows list for new level")
+
+func perform_shadow_entrance():
+	# Skip if no shadows
+	if shadow_list.size() == 0:
+		return
+	
+	print("Shadows performing entrance animation")
+	
+	# Create a simple visual effect at player position
+	var effect_position = global_position
+	
+	# Have shadows bow one by one
+	for shadow in shadow_list:
+		if is_instance_valid(shadow):
+			# Animate a bow
+			var tween = create_tween()
+			tween.tween_property(shadow, "rotation_degrees", 30, 0.3)
+			tween.tween_property(shadow, "rotation_degrees", 0, 0.3)
+			
+			# Small delay between each shadow
+			await get_tree().create_timer(0.1).timeout
+	
+	# After bowing, scatter slightly
+	for shadow in shadow_list:
+		if is_instance_valid(shadow):
+			var random_offset = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			var tween = create_tween()
+			tween.tween_property(shadow, "position", shadow.position + random_offset, 0.5)
