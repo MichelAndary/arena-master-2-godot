@@ -78,6 +78,8 @@ func configure_enemy(enemy: Node, data: EnemyData):
 		enemy.get_node("Sprite").modulate = data.color
 		enemy.get_node("Sprite").scale = data.scale_modifier
 	
+	enemy.target_priority = data.target_priority
+	
 	return enemy
 
 func create_shadow(enemy_id, owner_node):

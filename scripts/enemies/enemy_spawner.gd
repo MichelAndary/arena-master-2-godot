@@ -87,16 +87,31 @@ func _on_enemy_killed():
 		open_portal()
 
 func open_portal():
+	print("Portal opened! Stage complete.")
+	
+	# Wait a moment for the last enemy's soul essence to spawn
+	await get_tree().create_timer(0.6).timeout
+	
+	# Collect remaining soul essence but don't auto-complete stage
+	collect_remaining_essence()
+	
+	# Create the actual portal
 	var portal_scene = load("res://scenes/portals/portal.tscn")
 	if portal_scene:
 		var portal = portal_scene.instantiate()
-		portal.global_position = get_viewport_rect().size / 2
+		# Position portal at top middle of the field (not viewport)
+		portal.global_position = Vector2(960, 200)  # Top middle of 1920x1080 field
 		get_tree().current_scene.add_child(portal)
 		portal.activate()
-	else:
-		# Fallback if portal scene not found
-		await get_tree().create_timer(3.0).timeout
-		GameManager.complete_stage()
+		
+		# TODO: Add logic for shop portal (left side) and challenge portal (right side)
+		# Example:
+		# if randf() < 0.3:  # 30% chance for shop
+		#     var shop_portal = portal_scene.instantiate()
+		#     shop_portal.portal_type = portal.PortalType.SHOP
+		#     shop_portal.global_position = Vector2(300, 540)  # Left side
+		#     get_tree().current_scene.add_child(shop_portal)
+		#     shop_portal.activate()wdddw
 
 # If you have the soul essence collection logic, keep it here
 func collect_remaining_essence():

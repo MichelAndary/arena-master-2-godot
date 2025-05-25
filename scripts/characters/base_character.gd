@@ -89,7 +89,7 @@ func update_timers(delta):
 	if ultimate_timer > 0:
 		ultimate_timer -= delta
 
-func process_idle_state(delta):
+func process_idle_state(_delta):
 	# Check for movement input
 	get_input()
 	if input_direction != Vector2.ZERO:
@@ -98,7 +98,7 @@ func process_idle_state(delta):
 	# Check for ability inputs
 	check_ability_inputs()
 
-func process_movement_state(delta):
+func process_movement_state(_delta):
 	get_input()
 	
 	if input_direction == Vector2.ZERO:
@@ -112,19 +112,19 @@ func process_movement_state(delta):
 	# Check for ability inputs
 	check_ability_inputs()
 
-func process_attack_state(delta):
+func process_attack_state(_delta):
 	# Attack logic handled in auto_attack function
 	current_state = State.IDLE
 
-func process_skill_state(delta):
+func process_skill_state(_delta):
 	# Will be implemented in child classes
 	pass
 
-func process_ultimate_state(delta):
+func process_ultimate_state(_delta):
 	# Will be implemented in child classes
 	pass
 
-func process_dash_state(delta):
+func process_dash_state(_delta):
 	# Dash logic
 	velocity = input_direction.normalized() * dash_speed
 	move_and_slide()
@@ -133,7 +133,7 @@ func process_dash_state(delta):
 	await get_tree().create_timer(0.2).timeout
 	current_state = State.MOVING
 
-func process_dead_state(delta):
+func process_dead_state(_delta):
 	# Death logic
 	# Game over handling
 	pass
@@ -188,6 +188,10 @@ func check_for_targets():
 	enemies_in_range = []
 	
 	for enemy in potential_targets:
+		# Skip dead enemies
+		if enemy.has_method("get_current_state") and enemy.get_current_state() == enemy.State.DEAD:
+			continue
+			
 		var distance = global_position.distance_to(enemy.global_position)
 		if distance <= attack_range:
 			enemies_in_range.append(enemy)
@@ -268,7 +272,7 @@ func die():
 	# Game over
 	GameManager.game_over()
 
-func on_enemy_killed(enemy):
+func on_enemy_killed(_enemy):
 	# Default behavior when an enemy is killed
 	# Will be overridden in child classes
 	pass 

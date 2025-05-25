@@ -14,10 +14,16 @@ var movement_speed = 100
 
 # Combat
 var attack_range = 50
-var detection_range = 300
+var detection_range = 9999
 var attack_cooldown = 1.0
 var attack_timer = 0.0
 var stun_timer = 0.0
+
+# Targeting behavior
+var target_priority = "closest"
+var push_through_others = false
+var charge_speed_multiplier = 1.0
+var effective_detection_range = 300.0
 
 # Target
 var target = null
@@ -70,7 +76,7 @@ func process_idle_state(delta):
 		enemy_behavior(delta)
 
 # New function for shadow behavior
-func shadow_behavior(delta):
+func shadow_behavior(_delta):
 	# Step 1: Find nearest enemy to attack
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var nearest_enemy = null
@@ -119,83 +125,82 @@ func shadow_behavior(delta):
 			velocity = Vector2.ZERO
 
 # New function for enemy behavior
-func enemy_behavior(delta):
-	# Find player and shadows to target
-	var player = get_tree().get_first_node_in_group("player")
-	var shadows = get_tree().get_nodes_in_group("shadows")
+func enemy_behavior(_delta):
+	# Set detection range (use override if specified, otherwise use default)
+	if effective_detection_range <= 9999:
+		effective_detection_range = detection_range
 	
 	var potential_targets = []
-	if player:
-		potential_targets.append(player)
-	potential_targets.append_array(shadows)
 	
-	# Find closest target
+	# Gather targets based on priority
+	match target_priority:
+		"player_only":
+			var player = get_tree().get_first_node_in_group("player")
+			if player:
+				potential_targets.append(player)
+		"shadows_only":
+			potential_targets = get_tree().get_nodes_in_group("shadows")
+		"closest":
+			var player = get_tree().get_first_node_in_group("player")
+			if player:
+				potential_targets.append(player)
+			potential_targets.append_array(get_tree().get_nodes_in_group("shadows"))
+	
+	# Find the closest valid target
 	var closest_target = null
 	var closest_distance = 99999
 	
-	for target_entity in potential_targets:
-		var distance = global_position.distance_to(target_entity.global_position)
-		if distance < closest_distance and distance < detection_range:
-			closest_target = target_entity
-			closest_distance = distance
+	for potential_target in potential_targets:
+		if is_instance_valid(potential_target):
+			# For shadows, check if they're actually alive
+			var is_target_alive = true
+			if potential_target.has_method("get_current_state"):
+				is_target_alive = potential_target.get_current_state() != State.DEAD
+			
+			if is_target_alive:
+				var distance = global_position.distance_to(potential_target.global_position)
+				if distance < effective_detection_range and distance < closest_distance:
+					closest_target = potential_target
+					closest_distance = distance
 	
-	# Set target if found
+	# Set target and chase
 	if closest_target:
 		target = closest_target
 		current_state = State.CHASING
 	else:
+		target = null
 		velocity = Vector2.ZERO
 
-func process_chase_state(delta):
-	# If target isn't valid or is dead, go back to idle
-	if !target or !is_instance_valid(target) or target.current_state == State.DEAD:
-		target = null
+func process_chase_state(_delta):
+	# Always re-evaluate closest target (Brotato style)
+	enemy_behavior(_delta)
+	
+	if !target or !is_instance_valid(target):
 		current_state = State.IDLE
 		return
 	
-	# For shadows, don't chase other shadows or the player
-	if is_shadow:
-		if target.is_in_group("shadows") or target.is_in_group("player"):
-			target = null
-			current_state = State.IDLE
-			return
-	else:
-		# For enemies, don't chase shadows
-		if target.is_in_group("shadows"):
-			target = null
-			current_state = State.IDLE
-			return
-	
-	# If target is too far, go back to idle
-	if global_position.distance_to(target.global_position) > detection_range * 1.5:
-		target = null
-		current_state = State.IDLE
-		return
-	
-	# Move toward target with separation
+	# Move toward target
 	var direction = (target.global_position - global_position).normalized()
+	var current_speed = movement_speed * charge_speed_multiplier
 	
-	# Add separation to avoid sticking
-	var separation = Vector2.ZERO
-	var entities
-	if is_shadow:
-		entities = get_tree().get_nodes_in_group("shadows")
-	else:
-		entities = get_tree().get_nodes_in_group("enemies")
-	var sep_count = 0
+	# Apply separation only if enemy can't push through others
+	if not push_through_others:
+		var separation = Vector2.ZERO
+		var entities = get_tree().get_nodes_in_group("enemies")
+		var sep_count = 0
+		
+		for entity in entities:
+			if entity != self:
+				var dist = global_position.distance_to(entity.global_position)
+				if dist < 90:
+					separation += global_position - entity.global_position
+					sep_count += 1
+		
+		if sep_count > 0:
+			separation = separation.normalized() * 1
+			direction = (direction + separation).normalized()
 	
-	for entity in entities:
-		if entity != self:
-			var dist = global_position.distance_to(entity.global_position)
-			if dist < 30:  # Adjust separation distance
-				separation += global_position - entity.global_position
-				sep_count += 1
-	
-	if sep_count > 0:
-		separation = separation.normalized() * 0.5  # Lower value to reduce effect
-		direction = (direction + separation).normalized()
-	
-	velocity = direction * movement_speed
+	velocity = direction * current_speed
 	move_and_slide()
 	
 	# Check if close enough to attack
@@ -205,7 +210,7 @@ func process_chase_state(delta):
 	
 
 
-func process_attack_state(delta):
+func process_attack_state(_delta):
 	# If target isn't valid or is too far, go back to chasing
 	if !target or !is_instance_valid(target) or target.current_state == target.State.DEAD:
 		target = null
@@ -225,12 +230,12 @@ func process_attack_state(delta):
 		perform_attack()
 		attack_timer = attack_cooldown
 
-func process_stunned_state(delta):
+func process_stunned_state(_delta):
 	# Can't do anything while stunned
 	velocity = Vector2.ZERO
 	move_and_slide()
 
-func process_dead_state(delta):
+func process_dead_state(_delta):
 	# Just in case - ensure we're not moving
 	velocity = Vector2.ZERO
 	move_and_slide()
@@ -243,20 +248,18 @@ func perform_attack():
 	if is_shadow:
 		# Shadow attacking enemy
 		if target.is_in_group("enemies"):
-			print(enemy_name + " attacks " + target.name)
 			if target.has_method("take_damage"):
 				target.take_damage(damage, owner_ref)
 		else:
 			# Shadow shouldn't attack player or other shadows
 			current_state = State.IDLE
 	else:
-		# Enemy attacking player
-		if target.is_in_group("player"):
-			print(enemy_name + " attacks " + target.name)
+		# Enemy attacking player OR shadows
+		if target.is_in_group("player") or target.is_in_group("shadows"):
 			if target.has_method("take_damage"):
 				target.take_damage(damage)
 		else:
-			# Enemy shouldn't attack shadows
+			# Enemy shouldn't attack other enemies
 			current_state = State.IDLE
 
 func take_damage(amount, source=null):
@@ -265,12 +268,12 @@ func take_damage(amount, source=null):
 		return
 	
 	# Check if this is a shadow
-	if is_shadow:
+	#if is_shadow:
 		# Shadows can only be damaged by enemies, not by player
-		var sourceInPlayerGroup = source != null and source is Node and source.is_in_group("player")
-		if source == null or sourceInPlayerGroup:
-			print(enemy_name + " (shadow) ignored damage from player")
-			return
+		#var sourceInPlayerGroup = source != null and source is Node and source.is_in_group("player")
+		#if source == null or sourceInPlayerGroup:
+			#print(enemy_name + " (shadow) ignored damage from player")
+			#return
 	
 	# Process damage normally
 	health -= amount
@@ -297,21 +300,38 @@ func die(source=null):
 	# Change state to dead
 	current_state = State.DEAD
 	
-	# Notify the game manager
-	GameManager.enemies_killed += 1
-	GameManager.emit_signal("enemy_killed")
+	# If this is a shadow, notify the owner and add to dead list
+	if is_shadow and owner_ref and is_instance_valid(owner_ref):
+		# Find the shadow data that corresponds to this shadow
+		var shadow_data = null
+		for available_shadow in owner_ref.available_shadows:
+			if available_shadow.enemy_type == enemy_name.replace("Shadow ", ""):
+				shadow_data = available_shadow
+				break
+		
+		# Add to dead shadows list so it can't be resummoned
+		if shadow_data:
+			owner_ref.dead_shadows.append(shadow_data)
+		
+		# Remove from owner's shadow list
+		owner_ref.remove_shadow(self)
+	else:
+		# Regular enemy death
+		GameManager.enemies_killed += 1
+		GameManager.emit_signal("enemy_killed")
 	
 	# If killed by a player, notify them
 	if source and source.has_method("on_enemy_killed"):
 		source.on_enemy_killed(self)
 	
-	# Spawn soul essence (ADD THIS)
-	var soul_essence_scene = load("res://scenes/pickups/soul_essence.tscn")
-	if soul_essence_scene:
-		var soul = soul_essence_scene.instantiate()
-		soul.value = 1  # Basic value
-		soul.global_position = global_position
-		get_tree().current_scene.call_deferred("add_child", soul)
+	# Spawn soul essence only for regular enemies, not shadows
+	if not is_shadow:
+		var soul_essence_scene = load("res://scenes/pickups/soul_essence.tscn")
+		if soul_essence_scene:
+			var soul = soul_essence_scene.instantiate()
+			soul.value = 1  # Basic value
+			soul.global_position = global_position
+			get_tree().current_scene.call_deferred("add_child", soul)
 	
 	# Visual feedback
 	modulate = Color(0.5, 0.5, 0.5, 0.5)  # Fade out
@@ -320,6 +340,7 @@ func die(source=null):
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
 	
+
 func get_current_state():
 	return current_state
 
@@ -328,6 +349,10 @@ func convert_to_shadow(owner_node):
 	is_shadow = true
 	owner_ref = owner_node
 	enemy_name = "Shadow " + enemy_name
+	
+	# Change collision layer/mask for shadows
+	collision_layer = 4  # Layer 3 (Shadows)
+	collision_mask = 2   # Only collide with enemies (Layer 2)
 	
 	# IMPORTANT: Make sure we're removed from enemies group
 	if is_in_group("enemies"):

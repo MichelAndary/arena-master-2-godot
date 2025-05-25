@@ -28,7 +28,8 @@ var sp_points = 20  # Shadow Points
 var sp_max = 20
 var intelligence = 10  # Affects shadow command chance
 var shadow_list = []  # List of active shadows
-var shadow_limit = 5  # Maximum number of shadows at once
+var shadow_limit = 8  # Maximum number of shadows at once
+var dead_shadows = []  # List of shadow data that died and can't be resummoned
 var recently_hit_enemies = []
 
 @onready var weapon_animator = $WeaponAnimator
@@ -46,7 +47,7 @@ var dash_path_visible = false       # Whether to draw the path
 
 #Ultimate
 var available_shadows = []
-var max_available_shadows = 20  # Maximum number we'll track
+var max_available_shadows = 8  # Maximum number we'll track
 var summon_ui_scene = preload("res://scenes/ui/summon_ui.tscn")
 var summon_ui = null
 var summoned_shadows = []  # List of shadow data that has already been summoned
@@ -218,22 +219,38 @@ func use_ultimate():
 		print("Using Command ability")
 		current_state = State.USING_ULTIMATE
 		
-		# Filter out already summoned shadows
-		# Updated shadow search
+		# Filter out shadows that are currently active AND dead shadows
 		var available_for_summon = []
 		for shadow in available_shadows:
-			var already_summoned = false
-			for summoned in summoned_shadows:
-				if summoned.is_equal(shadow):
-					already_summoned = true
+			var is_currently_active = false
+			var is_dead = false
+			
+			# Check if this shadow type is currently active (look at actual shadow_list)
+			for active_shadow in shadow_list:
+				if is_instance_valid(active_shadow) and active_shadow.enemy_name.replace("Shadow ", "") == shadow.enemy_type:
+					is_currently_active = true
 					break
-	
-			if not already_summoned:
+			
+			# Check if dead (can't be resummoned)
+			for dead_shadow in dead_shadows:
+				if dead_shadow.is_equal(shadow):
+					is_dead = true
+					break
+			
+			if not is_currently_active and not is_dead:
 				available_for_summon.append(shadow)
+		
+		# Check shadow limit
+		var can_summon = shadow_limit - shadow_list.size()
+		if can_summon <= 0:
+			print("Shadow limit reached! Cannot summon more shadows.")
+			ultimate_timer = ultimate_cooldown
+			current_state = State.IDLE
+			return
 		
 		# Check if there are any shadows available
 		if available_for_summon.size() > 0:
-			# Show the summon UI with only unsummoned shadows
+			# Show the summon UI with only available shadows
 			summon_ui.show_summon_ui(self, available_for_summon)
 		else:
 			print("No shadows available to summon!")

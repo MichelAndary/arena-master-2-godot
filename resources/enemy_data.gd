@@ -16,10 +16,16 @@ class_name EnemyData
 @export var attack_range: float = 50.0
 @export var detection_range: float = 300.0
 
+# Targeting behavior
+@export var target_priority: String = "closest"  # "closest", "player_only", "shadows_only"
+@export var detection_range_override: float = -1  # -1 uses default, otherwise overrides
+@export var push_through_others: bool = false  # Can push other entities aside
+@export var charge_speed_multiplier: float = 1.0  # Speed multiplier when charging
+
 # Visuals
 @export var color: Color = Color.RED
 @export var scale_modifier: Vector2 = Vector2(1, 1)
-@export var scene_path: String = "res://scenes/enemies/basic_enemy.tscn"
+@export var scene_path: String = "res://scenes/enemies/BasicEnemy.tscn"
 
 # Shadow Properties (add these near the end of the file)
 @export var shadow_name: String = ""  # If different from regular name
