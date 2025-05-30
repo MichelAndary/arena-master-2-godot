@@ -41,9 +41,13 @@ func spawn_player():
 				player.update_health_display()
 			
 			# Restore SP if player is Kairis
-			if player.has_method("get_sp_points") and GameManager.player_sp > 0:
+			if player.character_name == "Kairis" and GameManager.player_sp > 0:
 				player.sp_points = GameManager.player_sp
 				player.update_sp_display()
+				
+			# Restore shadows if player is Kairis
+			if player.character_name == "Kairis" and GameManager.player_shadow_data.size() > 0:
+				player.restore_shadow_data(GameManager.player_shadow_data)
 		
 		if GameManager.current_stage > 1 and player is Kairis:
 			# Short delay before entrance animation

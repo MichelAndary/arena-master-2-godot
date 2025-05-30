@@ -487,3 +487,34 @@ func perform_shadow_entrance():
 			var random_offset = Vector2(randf_range(-50, 50), randf_range(-50, 50))
 			var tween = create_tween()
 			tween.tween_property(shadow, "position", shadow.position + random_offset, 0.5)
+
+func save_shadow_data():
+	var shadow_data = []
+	for shadow in shadow_list:
+		if is_instance_valid(shadow):
+			var data = {
+				"unique_id": shadow.enemy_name,  # Use the shadow's name as ID
+				"enemy_type": shadow.enemy_name.replace("Shadow ", ""),
+				"health": shadow.health,
+				"max_health": shadow.max_health,
+				"damage": shadow.damage
+				"sp_cost": 1
+			}
+			shadow_data.append(data)
+	return shadow_data
+
+func restore_shadow_data(shadow_data_array):
+	# Clear existing shadows
+	shadow_list.clear()
+	
+	# Wait a moment for the scene to be ready
+	await get_tree().create_timer(0.1).timeout
+	
+	# Recreate shadows from saved data
+	for data in shadow_data_array:
+		# Find matching shadow in available_shadows
+		for available_shadow in available_shadows:
+			if available_shadow.enemy_type == data.enemy_type:
+				# Spawn this shadow
+				spawn_shadow(available_shadow)
+				break

@@ -12,7 +12,7 @@ var current_fragments = 0  # Persistent currency
 var soul_essence = 0  # In-run currency
 var saved_soul_essence = 0
 var player_health = 0
-var player_sp = 0
+var player_sp = 20
 
 # Run data
 var current_stage = 0
@@ -20,6 +20,7 @@ var enemies_killed = 0
 var enemies_total = 20  # This will vary per stage
 var run_time = 0
 var stage_time = 180  # 3 minutes per stage in seconds
+var player_shadow_data = []
 
 # Signals
 signal stage_completed
@@ -89,6 +90,7 @@ func complete_stage():
 		player_health = player.health
 		if player is Kairis:
 			player_sp = player.sp_points
+			player_shadow_data = player.save_shadow_data()
 	emit_signal("stage_completed")
 	
 	# Save soul essence
@@ -108,9 +110,13 @@ func complete_stage():
 	if enemy_spawner and enemy_spawner.has_method("update_stage_difficulty"):
 		# This will be called after scene change
 		call_deferred("_update_spawner_difficulty")
-	
-	# This would transition to next stage
+		
+	# Defer the scene change to avoid physics callback issues
+	call_deferred("_reload_scene")
+
+func _reload_scene():
 	get_tree().reload_current_scene()
+	
 
 func _update_spawner_difficulty():
 	# Wait for the scene to load

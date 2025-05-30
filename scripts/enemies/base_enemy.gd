@@ -76,7 +76,7 @@ func process_idle_state(delta):
 		enemy_behavior(delta)
 
 # New function for shadow behavior
-func shadow_behavior(_delta):
+func shadow_behavior(delta):
 	# Step 1: Find nearest enemy to attack
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var nearest_enemy = null
@@ -97,19 +97,36 @@ func shadow_behavior(_delta):
 			# Close enough to attack
 			current_state = State.ATTACKING
 		else:
-			# Chase the enemy
+			# Chase the enemy with separation
 			var direction = (nearest_enemy.global_position - global_position).normalized()
+			
+			# Add separation force to avoid stacking with other shadows
+			var separation = Vector2.ZERO
+			var shadows = get_tree().get_nodes_in_group("shadows")
+			var sep_count = 0
+			
+			for shadow in shadows:
+				if shadow != self:
+					var dist = global_position.distance_to(shadow.global_position)
+					if dist < 30:  # Separation distance
+						separation += (global_position - shadow.global_position).normalized()
+						sep_count += 0.5
+			
+			if sep_count > 0:
+				separation = separation.normalized() * 100  # Separation force strength
+				direction = (direction + separation).normalized()
+			
 			velocity = direction * movement_speed
 			move_and_slide()
 	else:
-		# Step 3: No enemies, follow owner in formation
+		# Step 3: No enemies, follow owner in formation with separation
 		if owner_ref and is_instance_valid(owner_ref):
 			var row = formation_index / 3
 			var col = formation_index % 3
 			
 			var offset = Vector2(
-				(col - 1) * 40,
-				(row + 1) * 40
+				(col - 1) * 60,  # Increased spacing from 40 to 60
+				(row + 1) * 60   # Increased spacing from 40 to 60
 			)
 			
 			var formation_pos = owner_ref.global_position + offset
@@ -117,6 +134,23 @@ func shadow_behavior(_delta):
 			
 			if distance_to_formation > 20:
 				var direction = (formation_pos - global_position).normalized()
+				
+				# Add separation even in formation
+				var separation = Vector2.ZERO
+				var shadows = get_tree().get_nodes_in_group("shadows")
+				var sep_count = 0
+				
+				for shadow in shadows:
+					if shadow != self:
+						var dist = global_position.distance_to(shadow.global_position)
+						if dist < 60:
+							separation += (global_position - shadow.global_position).normalized()
+							sep_count += 1
+				
+				if sep_count > 0:
+					separation = separation.normalized() * 50  # Weaker force in formation
+					direction = (direction + separation).normalized()
+				
 				velocity = direction * movement_speed
 				move_and_slide()
 			else:
@@ -196,9 +230,9 @@ func process_chase_state(_delta):
 	for entity in entities:
 		if entity != self:
 			var dist = global_position.distance_to(entity.global_position)
-			if dist < 80:  # Increased from 30 to 80
+			if dist < 30:  # Increased from 30 to 80
 				separation += (global_position - entity.global_position).normalized()
-				sep_count += 1
+				sep_count += 0.5
 
 	if sep_count > 0:
 		separation = separation.normalized() * 100  # Increased from 0.5 to 100
