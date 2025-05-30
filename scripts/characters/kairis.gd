@@ -3,14 +3,15 @@ class_name Kairis
 
 # Create a Shadow data class to store enemy info
 class ShadowData:
-	var enemy_id = ""  # Reference to the enemy data resource
+	var unique_id = ""    # Unique identifier for this specific shadow
+	var enemy_id = ""     # Reference to the enemy data resource
 	var enemy_type = ""
-	
 	var max_health = 0
 	var damage = 0
 	var sp_cost = 1
 	
-	func _init(id, type, health, dmg, cost=1):
+	func _init(uid, id, type, health, dmg, cost=1):
+		unique_id = uid
 		enemy_id = id
 		enemy_type = type
 		max_health = health
@@ -22,6 +23,7 @@ class ShadowData:
 		max_health == other.max_health and \
 		damage == other.damage and \
 		sp_cost == other.sp_cost
+		unique_id == other.unique_id
 
 # Kairis specific stats
 var sp_points = 20  # Shadow Points
@@ -31,6 +33,7 @@ var shadow_list = []  # List of active shadows
 var shadow_limit = 8  # Maximum number of shadows at once
 var dead_shadows = []  # List of shadow data that died and can't be resummoned
 var recently_hit_enemies = []
+var shadow_id_counter = 0
 
 @onready var weapon_animator = $WeaponAnimator
 @onready var dagger_hit_area = $WeaponSystem/DaggerHolder/DaggerHitArea
@@ -216,47 +219,33 @@ func take_damage(amount):
 # Override ultimate method (Q key)
 func use_ultimate():
 	if current_state != State.DEAD and ultimate_timer <= 0:
-		print("Using Command ability")
 		current_state = State.USING_ULTIMATE
-		
-		# Filter out shadows that are currently active AND dead shadows
-		var available_for_summon = []
-		for shadow in available_shadows:
-			var is_currently_active = false
-			var is_dead = false
-			
-			# Check if this shadow type is currently active (look at actual shadow_list)
-			for active_shadow in shadow_list:
-				if is_instance_valid(active_shadow) and active_shadow.enemy_name.replace("Shadow ", "") == shadow.enemy_type:
-					is_currently_active = true
-					break
-			
-			# Check if dead (can't be resummoned)
-			for dead_shadow in dead_shadows:
-				if dead_shadow.is_equal(shadow):
-					is_dead = true
-					break
-			
-			if not is_currently_active and not is_dead:
-				available_for_summon.append(shadow)
 		
 		# Check shadow limit
 		var can_summon = shadow_limit - shadow_list.size()
 		if can_summon <= 0:
-			print("Shadow limit reached! Cannot summon more shadows.")
+			print("Shadow limit reached!")
 			ultimate_timer = ultimate_cooldown
 			current_state = State.IDLE
 			return
 		
-		# Check if there are any shadows available
+		# Filter out only the permanently dead shadows (by unique ID)
+		var available_for_summon = []
+		for shadow in available_shadows:
+			var is_dead = false
+			for dead_shadow in dead_shadows:
+				if dead_shadow.unique_id == shadow.unique_id:
+					is_dead = true
+					break
+			
+			if not is_dead:
+				available_for_summon.append(shadow)
+		
 		if available_for_summon.size() > 0:
-			# Show the summon UI with only available shadows
-			summon_ui.show_summon_ui(self, available_for_summon)
+			summon_ui.show_summon_ui(self, available_for_summon)  # Back to 2 parameters
 		else:
 			print("No shadows available to summon!")
-			# Start cooldown anyway
 			ultimate_timer = ultimate_cooldown
-			# Return to normal state
 			current_state = State.IDLE
 
 func summon_shadows():
@@ -294,66 +283,47 @@ func on_enemy_killed(enemy):
 	
 	print("Processing enemy for shadow data: " + enemy.name)
 	
-	# Add enemy to available shadows list
+	# Create unique shadow data
 	var shadow_cost = 1
-	
-	# Get enemy name
 	var enemy_name = ""
 	if enemy.get("enemy_name") != null:
 		enemy_name = enemy.enemy_name
-		print("Using enemy_name property: " + enemy_name)
 	else:
 		enemy_name = enemy.name
-		print("Using node name: " + enemy_name)
 		
-	var enemy_id = "small_enemy"  # Default to small enemy
-	print("Starting with default enemy_id: " + enemy_id)
+	var enemy_id = "small_enemy"
 	
-	# Determine cost based on enemy name or properties
+	# Determine cost based on enemy type
 	if "medium" in enemy_name.to_lower():
 		shadow_cost = 3
 		enemy_id = "medium_enemy"
-		print("Classified as medium enemy: " + enemy_id)
 	elif "large" in enemy_name.to_lower() or "boss" in enemy_name.to_lower():
 		shadow_cost = 5
 		enemy_id = "large_enemy"
-		print("Classified as large enemy: " + enemy_id)
 	
-	# Get health and damage safely
-	var enemy_health = 30  # Default value
-	var enemy_damage = 5   # Default value
+	# Get enemy stats
+	var enemy_health = enemy.get("max_health") if enemy.get("max_health") != null else 30
+	var enemy_damage = enemy.get("damage") if enemy.get("damage") != null else 5
 	
-	# Try to access properties safely using get() which won't error
-	if enemy.get("max_health") != null:
-		enemy_health = enemy.max_health
-		print("Got max_health: " + str(enemy_health))
+	# Create shadow with unique ID
+	shadow_id_counter += 1
+	var unique_shadow_id = enemy_name + "_" + str(shadow_id_counter)
 	
-	if enemy.get("damage") != null:
-		enemy_damage = enemy.damage
-		print("Got damage: " + str(enemy_damage))
-	
-	# Create shadow data entry
 	var shadow = ShadowData.new(
-		enemy_id,         # Enemy resource ID
-		enemy_name,       # Enemy type name
-		enemy_health,     # Health from enemy or default
-		enemy_damage,     # Damage from enemy or default
-		shadow_cost       # SP cost
+		unique_shadow_id,    # Unique ID
+		enemy_id,            # Enemy resource ID
+		enemy_name,          # Enemy type name
+		enemy_health,        # Health
+		enemy_damage,        # Damage
+		shadow_cost          # SP cost
 	)
 	
-	print("Created ShadowData: ID=" + shadow.enemy_id + ", Type=" + shadow.enemy_type +
-		  ", Health=" + str(shadow.max_health) + ", Damage=" + str(shadow.damage) +
-		  ", SP Cost=" + str(shadow.sp_cost))
-	
-	# Add to available shadows
 	available_shadows.append(shadow)
+	print("Added shadow: " + unique_shadow_id + " (Cost: " + str(shadow_cost) + " SP). Total available: " + str(available_shadows.size()))
 	
 	# Keep list at maximum size
 	if available_shadows.size() > max_available_shadows:
-		available_shadows.remove_at(0)  # Remove oldest
-	
-	print("Added " + enemy_name + " to available shadows (Cost: " + str(shadow_cost) + 
-		  " SP). Total available: " + str(available_shadows.size()))
+		available_shadows.remove_at(0)
 
 func _on_dagger_hit_area_body_entered(body):
 	# Only deal damage if we're actually attacking and haven't hit this enemy yet
@@ -377,31 +347,36 @@ func _on_shadows_summoned(selected_shadows):
 		current_state = State.IDLE
 		return
 	
+	# Check if summoning would exceed limit
+	var would_exceed_limit = shadow_list.size() + selected_shadows.size() > shadow_limit
+	if would_exceed_limit:
+		print("Cannot summon " + str(selected_shadows.size()) + " shadows - would exceed limit of " + str(shadow_limit))
+		current_state = State.IDLE
+		return
+	
 	# Apply cooldown
 	ultimate_timer = ultimate_cooldown
 	
-	# Calculate total SP cost
+	# Calculate total SP cost and check if enough SP
 	var total_sp_cost = 0
 	for shadow in selected_shadows:
 		total_sp_cost += shadow.sp_cost
-		print("Adding shadow cost: " + str(shadow.sp_cost) + ", total: " + str(total_sp_cost))
+	
+	if sp_points < total_sp_cost:
+		print("Not enough SP to summon selected shadows")
+		current_state = State.IDLE
+		return
 	
 	# Deduct SP
-	print("Before SP deduction: " + str(sp_points))
 	sp_points -= total_sp_cost
 	if sp_points < 0:
 		sp_points = 0
-	print("After SP deduction: " + str(sp_points))
 	
 	# Update UI
 	emit_signal("sp_changed", sp_points, sp_max)
 	
 	# Summon the selected shadows
 	for shadow in selected_shadows:
-		# Mark this shadow as summoned by adding to summoned list
-		summoned_shadows.append(shadow)
-		
-		# Spawn the shadow entity
 		spawn_shadow(shadow)
 	
 	# Return to normal state

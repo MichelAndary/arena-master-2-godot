@@ -90,29 +90,55 @@ func _on_shadow_button_pressed(index):
 	
 	# Toggle selection
 	if button.button_pressed:
+		# Trying to select this shadow
+		var total_cost = get_total_selected_cost() + shadow.sp_cost
+		var would_exceed_limit = selected_shadows.size() + 1 > (player.shadow_limit - player.shadow_list.size())
+		
+		# Check SP first
+		if player and player.get("sp_points") != null and total_cost > player.sp_points:
+			button.button_pressed = false
+			show_warning("Not enough SP!")
+			return
+		
+		# Check shadow limit
+		if would_exceed_limit:
+			button.button_pressed = false
+			var available_slots = player.shadow_limit - player.shadow_list.size()
+			show_warning("Shadow limit! Can only summon " + str(available_slots) + " more shadows.")
+			return
+		
+		# Selection is valid
+		selected_shadows.append(shadow)
+		button.modulate = Color(0.7, 1.0, 0.7)  # Green tint
 		print("Selected shadow: " + shadow.enemy_type)
-		# Add to selected shadows if not already there
-		if not selected_shadows.has(shadow):
-			# Check if enough SP
-			var total_cost = get_total_selected_cost() + shadow.sp_cost
-			if player and player.get("sp_points") != null and total_cost <= player.sp_points:
-				selected_shadows.append(shadow)
-				button.modulate = Color(0.7, 1.0, 0.7)  # Green tint
-				print("Added to selected shadows, total: " + str(selected_shadows.size()))
-			else:
-				# Not enough SP
-				button.button_pressed = false
-				print("Not enough SP to select this shadow")
-				# Flash red
-				var tween = create_tween()
-				tween.tween_property(button, "modulate", Color(1.0, 0.5, 0.5), 0.1)
-				tween.tween_property(button, "modulate", Color(1.0, 1.0, 1.0), 0.1)
+		
 	else:
-		print("Deselected shadow: " + shadow.enemy_type)
-		# Remove from selected shadows
+		# Deselecting shadow
 		selected_shadows.erase(shadow)
 		button.modulate = Color(1.0, 1.0, 1.0)  # Normal color
-		print("Removed from selected shadows, total: " + str(selected_shadows.size()))
+		print("Deselected shadow: " + shadow.enemy_type)
+	
+	# Update the display to show current selection status
+	update_selection_display()
+
+func show_warning(message):
+	print("WARNING: " + message)
+	# Flash the SP label red to show warning
+	if sp_label:
+		var original_color = sp_label.get_theme_color("font_color")
+		sp_label.add_theme_color_override("font_color", Color.RED)
+		sp_label.text = message
+		
+		# Reset after 2 seconds
+		await get_tree().create_timer(2.0).timeout
+		sp_label.remove_theme_color_override("font_color")
+		update_selection_display()
+
+func update_selection_display():
+	if player and sp_label:
+		var available_slots = player.shadow_limit - player.shadow_list.size()
+		var selected_count = selected_shadows.size()
+		sp_label.text = "SP: " + str(player.sp_points) + "/" + str(player.sp_max) + " | Selected: " + str(selected_count) + "/" + str(available_slots)
 
 func _on_summon_pressed():
 	print("Summon button pressed with " + str(selected_shadows.size()) + " shadows selected")

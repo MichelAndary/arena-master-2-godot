@@ -184,21 +184,26 @@ func process_chase_state(_delta):
 	var current_speed = movement_speed * charge_speed_multiplier
 	
 	# Apply separation only if enemy can't push through others
-	if not push_through_others:
-		var separation = Vector2.ZERO
-		var entities = get_tree().get_nodes_in_group("enemies")
-		var sep_count = 0
-		
-		for entity in entities:
-			if entity != self:
-				var dist = global_position.distance_to(entity.global_position)
-				if dist < 90:
-					separation += global_position - entity.global_position
-					sep_count += 1
-		
-		if sep_count > 0:
-			separation = separation.normalized() * 1
-			direction = (direction + separation).normalized()
+	var separation = Vector2.ZERO
+	var entities
+	if is_shadow:
+		entities = get_tree().get_nodes_in_group("shadows")
+	else:
+		entities = get_tree().get_nodes_in_group("enemies")
+	
+	var sep_count = 0
+
+	for entity in entities:
+		if entity != self:
+			var dist = global_position.distance_to(entity.global_position)
+			if dist < 80:  # Increased from 30 to 80
+				separation += (global_position - entity.global_position).normalized()
+				sep_count += 1
+
+	if sep_count > 0:
+		separation = separation.normalized() * 100  # Increased from 0.5 to 100
+		# Apply separation more strongly
+		position += separation * get_physics_process_delta_time()
 	
 	velocity = direction * current_speed
 	move_and_slide()
